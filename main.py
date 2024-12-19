@@ -28,17 +28,19 @@ class Player(pygame.sprite.Sprite):
     def update(self):
         self.screen.blit(self.image,(self.x,self.y))
 class Enemy():
-    def __init__(self,x, y, speed, size, screen):
+    def __init__(self,x, y,rol, speed, size, screen):
         self.x = x
         self.y = y
+        self.rol=rol
         self.screen = screen
+        self.isvisible=True
         self.pic = pygame.image.load("./assets/plasticbag.png")
         #self.pic2 = pygame.image.load("../assets/Fish02_B.png")
         self.speed = speed
         self.size = size
-        self.pic = pygame.transform.scale(self.pic,(int(self.size*1.25),self.size))
+        self.pic = pygame.transform.scale(self.pic,(int(self.size*0.75),int(self.size*0.75)))
         #self.pic2 = pygame.transform.scale(self.pic2,(int(self.size*1.25),self.size))
-        self.hitbox = pygame.Rect(self.x,self.y,int(self.size*1.25),self.size)
+        self.hitbox = pygame.Rect(self.x,self.y,self.size,self.size)
         self.animation_timer_max = 16
         self.swimming_timer = self.animation_timer_max
         self.swimming_frame = 0
@@ -48,17 +50,27 @@ class Enemy():
             #self.pic2 = pygame.transform.flip (self.pic2, True, False)
 
     def createenemy(enemylist):
-        enemyspawn = random.randint(0,40)
+        spawndelay=30
+        enemyspawn = random.randint(0,spawndelay)
+        rol=0
         if enemyspawn == 1:
-            asfg = random.randint(0,1)
-            if asfg == 0:
+            lor = random.randint(0,1)
+            if lor == 0:
                 enemynewx=-100
-            elif asfg == 1:
-                enemynewx=900
-            enemy = Enemy(enemynewx,random.randint(0,650),5,100,screen)
+                rol=lor
+            elif lor == 1:
+                enemynewx=1000
+                rol=lor
+            spawnypos=random.randint(0,650)
+            if spawnypos <325:
+                rol=0
+                lor = rol
+            elif spawnypos>325:
+                rol=1
+                lor=rol
+            enemy = Enemy(enemynewx,spawnypos,rol,5,100,screen)
             enemylist.append(enemy)
     def update(self, screen):
-
         """
         self.swimming_timer -=1
         if self.swimming_timer <= 0:
@@ -72,30 +84,93 @@ class Enemy():
         if self.swimming_frame == 0:
         """
         screen.blit(self.pic,(self.x, self.y))
-        """
-        if rightorleft==1:
+        if self.rol==0:
             self.x+=self.speed
-        elif rightorleft==2:
+        elif self.rol==1:
             self.x-=self.speed
-        """
         #else:
          #   screen.blit(self.pic2,(self.x,self.y))
+class Food():
+    def __init__(self,x, y,rol, speed, size, screen):
+        self.x = x
+        self.y = y
+        self.rol=rol
+        self.screen = screen
+        self.pic = pygame.image.load("./assets/food.png")
+        #self.pic2 = pygame.image.load("../assets/Fish02_B.png")
+        self.speed = speed
+        self.size = size
+        self.pic = pygame.transform.scale(self.pic,(int(self.size*0.5),int(self.size*0.5)))
+        #self.pic2 = pygame.transform.scale(self.pic2,(int(self.size*1.25),self.size))
+        self.hitbox = pygame.Rect(self.x,self.y,self.size,self.size)
+        self.animation_timer_max = 16
+        self.swimming_timer = self.animation_timer_max
+        self.swimming_frame = 0
+        self.isvisible=True
+        
+       # if self.speed < 0:
+        #    self.pic = pygame.transform.flip (self.pic, True, False)
+            #self.pic2 = pygame.transform.flip (self.pic2, True, False)
+
+    def createfood(foodlist):
+        foodspawn = random.randint(0,40)
+        frol=0
+        if foodspawn == 1:
+            foodspawnin = random.randint(0,1)
+            if foodspawnin == 0:
+                foodnewx=-100
+                frol=foodspawnin
+            elif foodspawnin == 1:
+                foodnewx=900
+                frol=foodspawnin
+            foodypos=random.randint(0,650)
+            if foodypos == 0:
+                frol=0
+            elif foodypos==650:
+                frol=1
+            food = Food(foodnewx,foodypos,frol,5,100,screen)
+            foodlist.append(food)
+    def update(self, screen):
+        """
+        self.swimming_timer -=1
+        if self.swimming_timer <= 0:
+            self.swimming_timer = self.animation_timer_max
+            self.swimming_frame += 1
+            if self.swimming_frame > 1:
+                self.swimming_frame = 0
+        self.x += self.speed
+        
+       # pygame.draw.rect(screen, (50,150,250), self.hitbox)
+        if self.swimming_frame == 0:
+        """
+
+        if self.isvisible:
+            screen.blit(self.pic,(self.x, self.y))
+            if self.rol==0:
+                self.x+=self.speed
+                self.hitbox.x += self.speed
+            elif self.rol==1:
+                self.x-=self.speed
+                self.hitbox.x -= self.speed
 
 ###########################
 
 pygame.init()
+score = 0
+lives = 3
 game_width = 1000
 game_height = 650
 screen = pygame.display.set_mode((game_width, game_height))
+running = True
+fade_image = pygame.image.load("./assets/fade.png")
+screen.blit(fade_image,(0,0))
 backgroundimage = pygame.image.load("./assets/background.jpg")
 screen.blit(backgroundimage,(0,0))
-protoimage = pygame.image.load("./assets/plasticbag.png")
-protoimage = pygame.transform.scale(protoimage,(125,125))
 inimi_2_remove = []
 clock = pygame.time.Clock()
-running = True
 player = Player(screen)
 enemylist=[]
+foodlist=[]
 enemy_timer_max = 25
 enemy_timer = enemy_timer_max
 
@@ -129,25 +204,34 @@ while running:
         print("idk what to put here")
 
 #########################
-    
+
     screen.blit(backgroundimage,(0,0))
     backgroundimage = pygame.transform.scale(backgroundimage,(1101,667))
     font = pygame.font.Font(None, 35)
     text = font.render("Save the Turtles by Jayden Wu", True, (0, 0, 0))
     screen.blit(text, (15, 15))
-    text = font.render("Score: (insert score)", True, (0, 0, 0))
+    for food in foodlist:
+        if player.rect.colliderect(food.hitbox):
+            food.isvisible=False
+            score+=1
+        food.update(screen)
+    text = font.render("Score: " + str(score), True, (0, 0, 0))
     screen.blit(text, (15, 45))
     text = font.render("Time Played: " , True, (0, 0, 0))
     screen.blit(text, (15, 75))
+    text = font.render("Lives: " + str(lives), True, (0, 0, 0))
+    screen.blit(text, (15,105))
     player.update()
     Enemy.createenemy(enemylist)
+    Food.createfood(foodlist)
     for enemy in enemylist:
+        if player.rect.colliderect(enemy.hitbox):
+            enemy.isvisible=False
+            lives-=1
         enemy.update(screen)
-
 
     pygame.display.flip()
     clock.tick(40) 
     pygame.display.set_caption("Save the Turtles by Jayden Wu          FPS: " + str(clock.get_fps()))
-
 
 #######################
