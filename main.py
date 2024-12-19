@@ -152,6 +152,8 @@ class Food():
             elif self.rol==1:
                 self.x-=self.speed
                 self.hitbox.x -= self.speed
+        else:
+            foodlist.remove(self)
 
 ###########################
 
