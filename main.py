@@ -83,13 +83,23 @@ class Enemy():
        # pygame.draw.rect(screen, (50,150,250), self.hitbox)
         if self.swimming_frame == 0:
         """
-        screen.blit(self.pic,(self.x, self.y))
-        if self.rol==0:
-            self.x+=self.speed
-        elif self.rol==1:
-            self.x-=self.speed
+        #screen.blit(self.pic,(self.x, self.y))
+        #if self.rol==0:
+        #    self.x+=self.speed
+        #elif self.rol==1:
+        #    self.x-=self.speed
         #else:
          #   screen.blit(self.pic2,(self.x,self.y))
+        if self.isvisible:
+            screen.blit(self.pic,(self.x, self.y))
+            if self.rol==0:
+                self.x+=self.speed
+                self.hitbox.x += self.speed
+            elif self.rol==1:
+                self.x-=self.speed
+                self.hitbox.x -= self.speed
+        else:
+            enemylist.remove(self)
 class Food():
     def __init__(self,x, y,rol, speed, size, screen):
         self.x = x
