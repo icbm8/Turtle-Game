@@ -241,6 +241,7 @@ while running:
             score+=1
             if score % 10 == 0:
                 player.size += 50
+                player.image = pygame.image.load("./assets/playerturtle.png")
                 player.image = pygame.transform.scale(player.image,(int(player.size*0.125),int(player.size*0.125)))
                 player.rect = player.image.get_rect()
         food.update(screen)
