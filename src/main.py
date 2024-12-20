@@ -121,7 +121,11 @@ while running:
                 enemy.isvisible=False
                 health-=10
             enemy.update(screen, enemylist)
+    font = pygame.font.SysFont("timesnewroman", 15)
+    font.set_bold(True)
+    text = font.render("FPS: " + str(round(clock.get_fps())), True, (0, 0, 0))
+    screen.blit(text, (0,0))
     pygame.display.flip()
     clock.tick(50) 
-    pygame.display.set_caption("Save the Turtles: GaSTc Project by Jayden Wu             FPS: " + str(round(clock.get_fps())))
+    pygame.display.set_caption("Save the Turtles")
 #######################
