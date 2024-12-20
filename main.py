@@ -4,14 +4,17 @@ import time
 
 #######################
 
+start_time = time.time()
+
 class Player(pygame.sprite.Sprite):
-    def __init__(self,screen):
+    def __init__(self,screen,size):
         self.x = 0
         self.y = 250
         self.angle = 25
         self.screen = screen
+        self.size = size
         self.image = pygame.image.load("./assets/playerturtle.png")
-        self.image = pygame.transform.scale(self.image,(int(382/4),int(344/4)))
+        self.image = pygame.transform.scale(self.image,(int(self.size*0.15),int(self.size*0.125)))
         self.rect = self.image.get_rect()
         self.rect.topleft = (self.x,self.y)
         self.speed = 10
@@ -64,7 +67,55 @@ class Enemy():
             enemy = Enemy(enemynewx,spawnypos,rol,5,100,screen)
             enemylist.append(enemy)
     def update(self, screen):
-        pygame.draw.rect(screen, (255,0,0), self.hitbox, 2)
+        if self.isvisible:
+            screen.blit(self.image,(self.x, self.y))
+            self.hitbox.topleft = (self.x,self.y)
+            if self.rol==0:
+                self.x+=self.speed
+                self.hitbox.x += self.speed
+            elif self.rol==1:
+                self.x-=self.speed
+                self.hitbox.x -= self.speed
+        else:
+            enemylist.remove(self)
+class Enemy_Squid():
+    def __init__(self,x, y,rol, speed, size, screen):
+        self.x = x
+        self.y = y
+        self.rol=rol
+        self.screen = screen
+        self.isvisible=True
+        self.speed = speed
+        self.size = size
+        self.image = pygame.image.load("./assets/squid.png")
+        self.image = pygame.transform.scale(self.image,(self.size,self.size))
+        self.hitbox = self.image.get_rect()
+        self.hitbox.topleft = (self.x,self.y)
+        self.animation_timer_max = 16
+        self.swimming_timer = self.animation_timer_max
+        self.swimming_frame = 0
+    def createenemy(enemylist):
+        spawndelay=30
+        enemyspawn = random.randint(0,spawndelay)
+        rol=0
+        if enemyspawn == 1:
+            lor = random.randint(0,1)
+            if lor == 0:
+                enemynewx=-100
+                rol=lor
+            elif lor == 1:
+                enemynewx=1000
+                rol=lor
+            spawnypos=random.randint(0,650)
+            if spawnypos <325:
+                rol=0
+                lor = rol
+            elif spawnypos>325:
+                rol=1
+                lor=rol
+            enemy = Enemy(enemynewx,spawnypos,rol,5,100,screen)
+            enemylist.append(enemy)
+    def update(self, screen):
         if self.isvisible:
             screen.blit(self.image,(self.x, self.y))
             self.hitbox.topleft = (self.x,self.y)
@@ -112,7 +163,6 @@ class Food():
             food = Food(foodnewx,foodypos,frol,5,100,screen)
             foodlist.append(food)
     def update(self, screen):
-        pygame.draw.rect(screen, (255,0,0), self.hitbox, 2)
         if self.isvisible:
             screen.blit(self.image,(self.x, self.y))
             if self.rol==0:
@@ -141,9 +191,10 @@ backgroundimage = pygame.image.load("./assets/background.jpg")
 screen.blit(backgroundimage,(0,0))
 inimi_2_remove = []
 clock = pygame.time.Clock()
-player = Player(screen)
-enemylist=[]
-foodlist=[]
+player = Player(screen,450)
+enemylist = []
+foodlist = []
+squidlist = []
 enemy_timer_max = 25
 enemy_timer = enemy_timer_max
 
@@ -178,23 +229,27 @@ while running:
 
 #########################
 
-
+    elapsed_time = time.time()-start_time
     screen.blit(backgroundimage,(0,0))
     backgroundimage = pygame.transform.scale(backgroundimage,(1101,667))
-    font = pygame.font.Font(None, 35)
+    font = pygame.font.SysFont("timesnewroman", 25)
     text = font.render("Save the Turtles by Jayden Wu", True, (0, 0, 0))
     screen.blit(text, (15, 15))
     for food in foodlist:
         if player.rect.colliderect(food.hitbox):
             food.isvisible=False
             score+=1
+            if score % 10 == 0:
+                player.size += 50
+                player.image = pygame.transform.scale(player.image,(int(player.size*0.125),int(player.size*0.125)))
+                player.rect = player.image.get_rect()
         food.update(screen)
-    text = font.render("Score: " + str(score), True, (0, 0, 0))    
-    screen.blit(text, (15, 45))
-    text = font.render("Time Played: " , True, (0, 0, 0))
-    screen.blit(text, (15, 75))
+    text = font.render("Score: " + str(score) + "Size" + str(player.size), True, (0, 0, 0))    
+    screen.blit(text, (15, 40))
+    text = font.render("Time Played: " + str(round(elapsed_time)) + " seconds", True, (0, 0, 0))
+    screen.blit(text, (15, 65))
     text = font.render("Lives: " + str(lives), True, (0, 0, 0))
-    screen.blit(text, (15,105))
+    screen.blit(text, (15,90))
     player.update()
     Enemy.createenemy(enemylist)
     Food.createfood(foodlist)
@@ -203,9 +258,8 @@ while running:
             enemy.isvisible=False
             lives-=1
         enemy.update(screen)
-
     pygame.display.flip()
-    clock.tick(40) 
-    pygame.display.set_caption("Save the Turtles by Jayden Wu          FPS: " + str(clock.get_fps()))
+    clock.tick(50) 
+    pygame.display.set_caption("Save the Turtles: GaSTc Project by Jayden Wu             FPS: " + str(round(clock.get_fps())))
 
 #######################
