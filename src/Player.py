@@ -21,5 +21,4 @@ class Player(pygame.sprite.Sprite):
             self.rect.y += self.speed * y_movement
             self.rect.topleft = (self.x,self.y)
     def update(self):
-        pygame.draw.rect(self.screen, (255,0,0), self.rect, 2)
         self.screen.blit(self.image,(self.x,self.y))

@@ -10,7 +10,8 @@ class Enemy():
         self.isvisible=True
         self.speed = speed
         self.size = size
-        self.image = pygame.image.load("./assets/plasticbag.png")
+        images = ["./assets/plasticbag.png","./assets/plasticbottle.png"]
+        self.image = pygame.image.load(images[random.randint(0,1)])
         self.image = pygame.transform.scale(self.image,(self.size,self.size))
         self.hitbox = self.image.get_rect()
         self.hitbox.topleft = (self.x,self.y)

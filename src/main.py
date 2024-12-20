@@ -4,7 +4,7 @@ import time
 import pygame.transform
 from Player import Player
 from Food import Food
-from Enemy import Enemy
+from plastic_enemies import Enemy
 #######################
 start_time = time.time()
 facts_for_turtle = [
