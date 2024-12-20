@@ -7,10 +7,10 @@ from food import Food
 from plastic_enemies import Enemy
 #######################
 start_time = time.time()
-facts_for_turtle = [
-    "Scientists estimate that at least 1,000 sea turtles die each year due to entanglement in plastic — thats an average of more than 1 turtle every 9 hours!",
-    "Fact 2",
-    "fact 3"
+facts_for_game = [
+    "At least 1,000 sea turtles die each year due to plastic — thats more than 1 turtle every 9 hours!",
+    "By 2050, there will be more plastic than fish in the ocean!",
+    "More than 100,000 marine animals die each year due to plastic."
     ]
 ###########################
 pygame.init()
@@ -34,7 +34,7 @@ foodlist = []
 enemy_timer_max = 25
 enemy_timer = enemy_timer_max
 menu_show = True
-fact_on_menu = str(random.choice(facts_for_turtle))
+fact_on_menu = str(random.choice(facts_for_game))
 ##########################
 while running:
     for event in pygame.event.get():
@@ -66,28 +66,30 @@ while running:
         play_button = pygame.transform.scale(play_button,(400,200))
         play_button_hitbox = play_button.get_rect()
         play_button_hitbox.topleft = 200,200
-        screen.blit(play_button,(200,200))
+        screen.blit(play_button,(200,100))
         settings_button = pygame.image.load("./assets/settings.png")
         settings_button = pygame.transform.scale(settings_button,(200,200))
         settings_button_hitbox = settings_button.get_rect()
         settings_button_hitbox.topleft = 400,200
-        screen.blit(settings_button,(600,200))
+        screen.blit(settings_button,(600,100))
         text = font.render("Welcome to Save The Turtles", True, (0, 0, 0))
-        screen.blit(text, (200,100))
+        screen.blit(text, (200,0))
         font = pygame.font.SysFont("timesnewroman", 40)
         text = font.render("GaSTc Project by Jayden Wu", True, (0, 0, 0))
-        screen.blit(text, (275,150))
+        screen.blit(text, (275,50))
         font = pygame.font.SysFont("timesnewroman", 35)
         font.set_bold(True)
         text = font.render("Real Facts:", True, (0, 0, 0))
-        screen.blit(text, (400, 425))
+        screen.blit(text, (400, 325))
         font.set_bold(False)
+        font = pygame.font.SysFont("timesnewroman", 20)
         text = font.render(str(fact_on_menu), True, (0, 0, 0))
-        screen.blit(text, (275, 475))
+        screen.blit(text, (200, 375))
     if event.type == pygame.MOUSEBUTTONDOWN:
         if play_button_hitbox.collidepoint(event.pos):
             game_start = True
             menu_show = False
+#############################
     backgroundimage = pygame.transform.scale(backgroundimage,(1101,667))
     if game_start:
         font = pygame.font.SysFont("timesnewroman", 25)

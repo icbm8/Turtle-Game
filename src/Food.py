@@ -10,7 +10,7 @@ class Food():
         self.speed = speed
         self.size = size
         self.image = pygame.image.load("./assets/food.png")
-        self.image = pygame.transform.scale(self.image,(int(self.size*0.5),int(self.size*0.5)))
+        self.image = pygame.transform.scale(self.image,(int(self.size*0.35),int(self.size*0.35)))
         self.hitbox = self.image.get_rect()
         self.hitbox.topleft = (self.x,self.y)
         self.animation_timer_max = 16
