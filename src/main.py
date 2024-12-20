@@ -2,8 +2,8 @@ import pygame
 import random
 import time
 import pygame.transform
-from Player import Player
-from Food import Food
+from player import Player
+from food import Food
 from plastic_enemies import Enemy
 #######################
 start_time = time.time()
@@ -57,7 +57,7 @@ while running:
     if keys[pygame.K_SPACE]:
         print("pause game")
 #########################
-    elapsed_time = time.time()-start_time
+    elapsed_time = time.time() - start_time
     screen.blit(backgroundimage,(0,0))
     font = pygame.font.SysFont("timesnewroman", 45)
     font.set_bold(True)
