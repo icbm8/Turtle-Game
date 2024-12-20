@@ -81,11 +81,11 @@ while running:
         font = pygame.font.SysFont("timesnewroman", 35)
         font.set_bold(True)
         text = font.render("Real Facts:", True, (0, 0, 0))
-        screen.blit(text, (100, 350))
+        screen.blit(text, (25, 350))
         font.set_bold(False)
         font = pygame.font.SysFont("timesnewroman", 20)
         text = font.render(str(fact_on_menu), True, (0, 0, 0))
-        screen.blit(text, (300, 362.5))
+        screen.blit(text, (225, 362.5))
     if event.type == pygame.MOUSEBUTTONDOWN:
         if play_button_hitbox.collidepoint(event.pos):
             game_start = True
