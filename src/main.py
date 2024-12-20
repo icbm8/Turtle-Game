@@ -56,10 +56,6 @@ while running:
         player.Move(1,0)
     if keys[pygame.K_SPACE]:
         print("pause game")
-    if keys[pygame.K_n]:
-        print("powerup")
-    if pygame.mouse.get_pressed()[0]:
-        print("idk what to put here")
 #########################
     elapsed_time = time.time()-start_time
     screen.blit(backgroundimage,(0,0))
@@ -105,7 +101,7 @@ while running:
                 if score % 5 == 0:
                     player.size += 50
                     player.image = pygame.image.load("./assets/playerturtle.png")
-                    player.image = pygame.transform.scale(player.image,(int(player.size*0.125),int(player.size*0.125)))
+                    player.image = pygame.transform.scale(player.image,(int(player.size*0.15),int(player.size*0.125)))
                     player.rect = player.image.get_rect()
             food.update(screen, foodlist)
         font.set_bold(False)
