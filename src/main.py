@@ -24,7 +24,7 @@ game_width = 1000
 game_height = 650
 game_start = False
 settings_show = False
-difficulty = "Normal"
+difficulty = "Medium"
 screen = pygame.display.set_mode((game_width, game_height))
 running = True
 fade_image = pygame.image.load("./assets/fade.png")
@@ -100,7 +100,6 @@ while running:
                 game_start = True
                 menu_show = False
                 play_button_hitbox = None  # Delete the hitbox after click
-            
             if settings_button_hitbox and settings_button_hitbox.collidepoint(event.pos):
                 settings_show = True
                 menu_show = False
@@ -138,11 +137,13 @@ while running:
                 enemy.isvisible=False
                 health-=10
             enemy.update(screen, enemylist)
+
+#if settings were clicked
     if settings_show:
         font = pygame.font.SysFont("timesnewroman", 25)
         font.set_bold(True)
-        text = font.render("Difficulty", True, (0, 0, 0))
-        screen.blit(text, (265, 60))
+        text = font.render("Difficulty: " + difficulty, True, (0, 0, 0))
+        screen.blit(text, (240, 60))
         easy_button = pygame.image.load("./assets/easy.png")
         easy_button = pygame.transform.scale(easy_button,(150,100))
         easy_button_hitbox = easy_button.get_rect()
@@ -152,16 +153,24 @@ while running:
         medium_button = pygame.image.load("./assets/medium.png")
         medium_button = pygame.transform.scale(medium_button,(150,100))
         medium_button_hitbox = medium_button.get_rect()
-        medium_button_hitbox.topleft = (50,100)
+        medium_button_hitbox.topleft = (250,100)
         pygame.draw.rect(screen, (255,0,0), medium_button_hitbox, 2)
         screen.blit(medium_button,(250,100))
         hard_button = pygame.image.load("./assets/hard.png")
         hard_button = pygame.transform.scale(hard_button,(150,100))
         hard_button_hitbox = hard_button.get_rect()
-        hard_button_hitbox.topleft = (50,100)
+        hard_button_hitbox.topleft = (450,100)
         pygame.draw.rect(screen, (255,0,0), hard_button_hitbox, 2)
         screen.blit(hard_button,(450,100))
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if easy_button_hitbox.collidepoint(event.pos):
+                    difficulty = "Easy"
+            if medium_button_hitbox.collidepoint(event.pos):
+                    difficulty = "Medium"
+            if hard_button_hitbox.collidepoint(event.pos):
+                    difficulty = "Hard"
 
+#final captions and text including FPS and caption
     font = pygame.font.SysFont("timesnewroman", 15)
     font.set_bold(True)
     text = font.render("FPS: " + str(round(clock.get_fps())), True, (0, 0, 0))
@@ -169,4 +178,5 @@ while running:
     pygame.display.flip()
     clock.tick(50) 
     pygame.display.set_caption("Save the Turtles")
+    
 #end
