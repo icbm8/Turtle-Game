@@ -1,11 +1,5 @@
-from main import enemylist, screen
-
-
 import pygame
-
-
 import random
-
 
 class Enemy():
     def __init__(self,x, y,rol, speed, size, screen):
@@ -23,7 +17,7 @@ class Enemy():
         self.animation_timer_max = 16
         self.swimming_timer = self.animation_timer_max
         self.swimming_frame = 0
-    def createenemy(enemylist):
+    def createenemy(enemylist, screen):
         spawndelay=30
         enemyspawn = random.randint(0,spawndelay)
         rol=0
@@ -42,9 +36,9 @@ class Enemy():
             elif spawnypos>325:
                 rol=1
                 lor=rol
-            enemy = Enemy(enemynewx,spawnypos,rol,5,100,screen)
+            enemy = Enemy(enemynewx,spawnypos,rol,5,100, screen)
             enemylist.append(enemy)
-    def update(self, screen):
+    def update(self, screen, enemylist):
         if self.isvisible:
             screen.blit(self.image,(self.x, self.y))
             self.hitbox.topleft = (self.x,self.y)
