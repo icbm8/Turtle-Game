@@ -127,9 +127,20 @@ while running:
         screen.blit(text, (10, 80))
         text = font.render("Health: " + str(health), True, (0, 0, 0))
         screen.blit(text, (10,105))
+        exit_button = pygame.image.load("./assets/x.png")
+        exit_button = pygame.transform.scale(exit_button,(125,100))
+        exit_button_hitbox = exit_button.get_rect()
+        exit_button_hitbox.topleft = (885,0)
+        screen.blit(exit_button,(885,0))
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if exit_button_hitbox.collidepoint(event.pos):
+                game_start = False
+                menu_show = True
         player.update()
         Enemy.createenemy(enemylist, screen)
         Food.createfood(foodlist, screen)
+        if health == 0:
+             game_start == False
         for enemy in enemylist:
             if player.rect.colliderect(enemy.hitbox):
                 enemy.isvisible=False
