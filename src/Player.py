@@ -2,8 +2,8 @@ import pygame
 
 class Player(pygame.sprite.Sprite):
     def __init__(self,screen,size):
-        self.x = 0
-        self.y = 250
+        self.x = 450
+        self.y = 300
         self.angle = 25
         self.screen = screen
         self.size = size

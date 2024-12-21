@@ -123,10 +123,8 @@ while running:
         font.set_bold(False)
         text = font.render("Score: " + str(score), True, (0, 0, 0))    
         screen.blit(text, (10, 55))
-        text = font.render("Time Played: " + str(round(elapsed_time)) + " seconds", True, (0, 0, 0))
-        screen.blit(text, (10, 80))
         text = font.render("Health: " + str(health), True, (0, 0, 0))
-        screen.blit(text, (10,105))
+        screen.blit(text, (10,80))
         exit_button = pygame.image.load("./assets/x.png")
         exit_button = pygame.transform.scale(exit_button,(125,100))
         exit_button_hitbox = exit_button.get_rect()
@@ -191,6 +189,6 @@ while running:
     screen.blit(text, (10,10))
     pygame.display.flip()
     clock.tick(50) 
-    pygame.display.set_caption("Save the Turtles")
+    pygame.display.set_caption("Save the Turtles - " + str(round(elapsed_time)) + " seconds played")
 
 #end
