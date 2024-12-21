@@ -24,6 +24,7 @@ game_width = 1000
 game_height = 650
 game_start = False
 settings_show = False
+about_show = False
 difficulty = "Medium"
 screen = pygame.display.set_mode((game_width, game_height))
 running = True
@@ -64,7 +65,7 @@ while running:
     if keys[pygame.K_SPACE]:
         print("pause game")
 
-#screen blitting the menu
+#screen blitting the menu buttons + labels
     elapsed_time = time.time() - start_time
     screen.blit(backgroundimage,(0,0))
     font = pygame.font.SysFont("timesnewroman", 45)
@@ -76,7 +77,7 @@ while running:
         play_button_hitbox.topleft = 200,125
         screen.blit(play_button,(200,125))
         font = pygame.font.SysFont("timesnewroman", 30)
-        text = font.render("Play", True, (0, 0, 0))
+        text = font.render("Play ^", True, (0, 0, 0))
         screen.blit(text, (370,325))
         settings_button = pygame.image.load("./assets/settings.png")
         settings_button = pygame.transform.scale(settings_button,(200,200))
@@ -84,8 +85,17 @@ while running:
         settings_button_hitbox.topleft = 600,125
         screen.blit(settings_button,(600,125))
         font = pygame.font.SysFont("timesnewroman", 30)
-        text = font.render("Settings", True, (0, 0, 0))
+        text = font.render("Settings ^", True, (0, 0, 0))
         screen.blit(text, (650,325))
+        about_button = pygame.image.load("./assets/about.png")
+        about_button = pygame.transform.scale(about_button,(200,200))
+        about_button_hitbox = about_button.get_rect()
+        about_button_hitbox.topleft = 300,355
+        screen.blit(about_button,(350,365))
+        font = pygame.font.SysFont("timesnewroman", 30)
+        text = font.render("<-- About", True, (0, 0, 0))
+        screen.blit(text, (575,455))
+#titles and real facts
         font = pygame.font.SysFont("timesnewroman", 45)
         font.set_bold(True)
         text = font.render("Save The Turtles", True, (0, 0, 0))
@@ -110,6 +120,10 @@ while running:
                 settings_show = True
                 menu_show = False
                 settings_button_hitbox = None
+            if about_button_hitbox and about_button_hitbox.collidepoint(event.pos):
+                about_show = True
+                menu_show = False
+                about_button_hitbox = None
 
 #playing and showing the game
     backgroundimage = pygame.transform.scale(backgroundimage,(1101,667))
@@ -189,6 +203,19 @@ while running:
             if exit_button_hitbox.collidepoint(event.pos):
                     settings_show = False
                     menu_show = True
+
+#if about was clicked
+    if about_show:
+        exit_button = pygame.image.load("./assets/x.png")
+        exit_button = pygame.transform.scale(exit_button,(125,100))
+        exit_button_hitbox = exit_button.get_rect()
+        exit_button_hitbox.topleft = (885,0)
+        screen.blit(exit_button,(885,0))
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if exit_button_hitbox.collidepoint(event.pos):
+                    about_show = False
+                    menu_show = True
+         
 
 #final captions and text including FPS and caption
     font = pygame.font.SysFont("timesnewroman", 15)
