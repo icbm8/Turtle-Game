@@ -19,7 +19,13 @@ class Enemy():
         self.swimming_timer = self.animation_timer_max
         self.swimming_frame = 0
     def createenemy(enemylist, screen):
-        spawndelay=30
+        from main import difficulty
+        if difficulty == "Easy":
+            spawndelay = 50
+        elif difficulty == "Medium":
+            spawndelay = 40
+        elif difficulty == "Hard":
+            spawndelay = 40
         enemyspawn = random.randint(0,spawndelay)
         rol=0
         if enemyspawn == 1:

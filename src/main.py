@@ -74,13 +74,11 @@ while running:
         play_button = pygame.transform.scale(play_button,(400,200))
         play_button_hitbox = play_button.get_rect()
         play_button_hitbox.topleft = 200,125
-        pygame.draw.rect(screen, (255,0,0), play_button_hitbox, 2)
         screen.blit(play_button,(200,125))
         settings_button = pygame.image.load("./assets/settings.png")
         settings_button = pygame.transform.scale(settings_button,(200,200))
         settings_button_hitbox = settings_button.get_rect()
         settings_button_hitbox.topleft = 600,125
-        pygame.draw.rect(screen, (255,0,0), settings_button_hitbox, 2)
         screen.blit(settings_button,(600,125))
         text = font.render("Welcome to Save The Turtles", True, (0, 0, 0))
         screen.blit(text, (200,0))
@@ -111,7 +109,7 @@ while running:
         font = pygame.font.SysFont("timesnewroman", 25)
         font.set_bold(True)
         text = font.render("Save the Turtles by Jayden Wu", True, (0, 0, 0))
-        screen.blit(text, (15, 15))
+        screen.blit(text, (10, 30))
         for food in foodlist:
             if player.rect.colliderect(food.hitbox):
                 food.isvisible=False
@@ -124,11 +122,11 @@ while running:
             food.update(screen, foodlist)
         font.set_bold(False)
         text = font.render("Score: " + str(score), True, (0, 0, 0))    
-        screen.blit(text, (15, 40))
+        screen.blit(text, (10, 55))
         text = font.render("Time Played: " + str(round(elapsed_time)) + " seconds", True, (0, 0, 0))
-        screen.blit(text, (15, 65))
+        screen.blit(text, (10, 80))
         text = font.render("Health: " + str(health), True, (0, 0, 0))
-        screen.blit(text, (15,90))
+        screen.blit(text, (10,105))
         player.update()
         Enemy.createenemy(enemylist, screen)
         Food.createfood(foodlist, screen)
@@ -148,20 +146,22 @@ while running:
         easy_button = pygame.transform.scale(easy_button,(150,100))
         easy_button_hitbox = easy_button.get_rect()
         easy_button_hitbox.topleft = (50,100)
-        pygame.draw.rect(screen, (255,0,0), easy_button_hitbox, 2)
         screen.blit(easy_button,(50,100))
         medium_button = pygame.image.load("./assets/medium.png")
         medium_button = pygame.transform.scale(medium_button,(150,100))
         medium_button_hitbox = medium_button.get_rect()
         medium_button_hitbox.topleft = (250,100)
-        pygame.draw.rect(screen, (255,0,0), medium_button_hitbox, 2)
         screen.blit(medium_button,(250,100))
         hard_button = pygame.image.load("./assets/hard.png")
         hard_button = pygame.transform.scale(hard_button,(150,100))
         hard_button_hitbox = hard_button.get_rect()
         hard_button_hitbox.topleft = (450,100)
-        pygame.draw.rect(screen, (255,0,0), hard_button_hitbox, 2)
         screen.blit(hard_button,(450,100))
+        exit_button = pygame.image.load("./assets/x.png")
+        exit_button = pygame.transform.scale(exit_button,(125,100))
+        exit_button_hitbox = exit_button.get_rect()
+        exit_button_hitbox.topleft = (885,0)
+        screen.blit(exit_button,(885,0))
         if event.type == pygame.MOUSEBUTTONDOWN:
             if easy_button_hitbox.collidepoint(event.pos):
                     difficulty = "Easy"
@@ -169,14 +169,17 @@ while running:
                     difficulty = "Medium"
             if hard_button_hitbox.collidepoint(event.pos):
                     difficulty = "Hard"
+            if exit_button_hitbox.collidepoint(event.pos):
+                    settings_show = False
+                    menu_show = True
 
 #final captions and text including FPS and caption
     font = pygame.font.SysFont("timesnewroman", 15)
     font.set_bold(True)
     text = font.render("FPS: " + str(round(clock.get_fps())), True, (0, 0, 0))
-    screen.blit(text, (0,0))
+    screen.blit(text, (10,10))
     pygame.display.flip()
     clock.tick(50) 
     pygame.display.set_caption("Save the Turtles")
-    
+
 #end

@@ -19,7 +19,13 @@ class Food():
         self.isvisible=True
 
     def createfood(foodlist, screen):
-        foodspawn = random.randint(0,40)
+        from main import difficulty
+        if difficulty == "Easy":
+            foodspawn = random.randint(0,30)
+        elif difficulty == "Medium":
+            foodspawn = random.randint(0,40)
+        elif difficulty == "Hard":
+            foodspawn = random.randint(0,50)
         frol=0
         if foodspawn == 1:
             foodspawnin = random.randint(0,1)
