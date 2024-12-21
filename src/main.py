@@ -10,7 +10,7 @@ from plastic_enemies import Enemy
 #starts time and adds facts
 start_time = time.time()
 facts_for_game = [
-    "At least 1,000 sea turtles die each year due to plastic — thats more than 1 turtle every 9 hours!",
+    "At least 1,000 sea turtles die each year due to plastic. Thats more than 1 turtle every 9 hours!",
     "By 2050, there will be more plastic than fish in the ocean!",
     "More than 100,000 marine animals die each year due to plastic."
     ]
@@ -93,14 +93,14 @@ while running:
         font = pygame.font.SysFont("timesnewroman", 40)
         text = font.render("GaSTC Project by Jayden Wu", True, (0, 0, 0))
         screen.blit(text, (275,50))
-        font = pygame.font.SysFont("timesnewroman", 35)
+        font = pygame.font.SysFont("timesnewroman", 25)
         font.set_bold(True)
         text = font.render("Real Facts:", True, (0, 0, 0))
-        screen.blit(text, (25, 600))
-        font = pygame.font.SysFont("timesnewroman", 20)
+        screen.blit(text, (15, 600))
+        font = pygame.font.SysFont("timesnewroman", 15)
         font.set_bold(True)
         text = font.render(str(fact_on_menu), True, (0, 0, 0))
-        screen.blit(text, (225, 612.5))
+        screen.blit(text, (155, 607.5))
         if event.type == pygame.MOUSEBUTTONDOWN:
             if play_button_hitbox and play_button_hitbox.collidepoint(event.pos):
                 game_start = True
