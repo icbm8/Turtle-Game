@@ -215,7 +215,6 @@ while running:
             if exit_button_hitbox.collidepoint(event.pos):
                     about_show = False
                     menu_show = True
-         
 
 #final captions and text including FPS and caption
     font = pygame.font.SysFont("timesnewroman", 15)
