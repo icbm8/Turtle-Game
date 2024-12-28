@@ -215,6 +215,14 @@ while running:
             if exit_button_hitbox.collidepoint(event.pos):
                     about_show = False
                     menu_show = True
+        font = pygame.font.SysFont("timesnewroman", 25)
+        font.set_bold(True)
+        text = font.render("Save The Turtles - a game by Jayden Wu. In this game, you will navigate a", True, (0, 0, 0))
+        screen.blit(text, (20, 60))
+        text = font.render("turtle through mulitple plastic obstacles.", True, (0, 0, 0))
+        screen.blit(text, (20, 90))
+        text = font.render("Every once in a while, the player is asked a question about a subject of their liking (e.g. math, marine life,) and if they get it wrong, they will lose points and if they get it right they won't lose any.", True, (0, 0, 0))
+        screen.blit(text, (20, 120))
 
 #final captions and text including FPS and caption
     font = pygame.font.SysFont("timesnewroman", 15)
