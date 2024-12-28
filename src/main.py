@@ -221,8 +221,12 @@ while running:
         screen.blit(text, (20, 60))
         text = font.render("turtle through mulitple plastic obstacles.", True, (0, 0, 0))
         screen.blit(text, (20, 90))
-        text = font.render("Every once in a while, the player is asked a question about a subject of their liking (e.g. math, marine life,) and if they get it wrong, they will lose points and if they get it right they won't lose any.", True, (0, 0, 0))
-        screen.blit(text, (20, 120))
+        text = font.render("Every once in a while, the player is asked a question about a subject of their", True, (0, 0, 0))
+        screen.blit(text, (20, 140))
+        text = font.render("liking (e.g. math, marine life,) and if they get it wrong, they will lose points and", True, (0, 0, 0))
+        screen.blit(text, (20, 170))
+        text = font.render(" if they get it right they won't lose any.", True, (0, 0, 0))
+        screen.blit(text, (20, 200))
 
 #final captions and text including FPS and caption
     font = pygame.font.SysFont("timesnewroman", 15)
