@@ -10,7 +10,7 @@ class Food():
         self.speed = speed
         self.size = size
         self.image = pygame.image.load("./assets/food.png")
-        self.image = pygame.transform.scale(self.image,(int(self.size*0.35),int(self.size*0.35)))
+        self.image = pygame.transform.scale(self.image,(int(self.size*0.5),int(self.size*0.5)))
         self.hitbox = self.image.get_rect()
         self.hitbox.topleft = (self.x,self.y)
         self.animation_timer_max = 16
@@ -33,12 +33,12 @@ class Food():
                 foodnewx=-100
                 frol=foodspawnin
             elif foodspawnin == 1:
-                foodnewx=900
+                foodnewx=1600
                 frol=foodspawnin
-            foodypos=random.randint(0,650)
+            foodypos=random.randint(0,975)
             if foodypos == 0:
                 frol=0
-            elif foodypos==650:
+            elif foodypos==975:
                 frol=1
             food = Food(foodnewx,foodypos,frol,5,100,screen)
             foodlist.append(food)

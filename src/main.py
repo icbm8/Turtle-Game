@@ -14,19 +14,20 @@ facts_for_game = [
     "By 2050, there will be more plastic than fish in the ocean!",
     "More than 100,000 marine animals die each year due to plastic."
     ]
-math_questions = []
-marine_questions = []
+math_questions = ["filla tecst meth"]
+marine_questions = ["filla tecst merone"]
 
 #initialization and variable defining, also shows image and fade, etc.
 pygame.init()
 score = 0
 health = 100
 score = 0
-game_width = 1000
-game_height = 650
+game_width = 1500
+game_height = 975
 game_start = False
 settings_show = False
 about_show = False
+howtoplay_show = False
 difficulty = "Medium"
 subject = "Math"
 screen = pygame.display.set_mode((game_width, game_height))
@@ -34,7 +35,7 @@ running = True
 fade_image = pygame.image.load("./assets/fade.png")
 screen.blit(fade_image,(0,0))
 backgroundimage = pygame.image.load("./assets/background.jpg")
-screen.blit(backgroundimage,(0,0))
+backgroundimage = pygame.transform.scale(backgroundimage,(1500,975))
 inimi_2_remove = []
 clock = pygame.time.Clock()
 player = Player(screen,450)
@@ -44,7 +45,7 @@ enemy_timer_max = 25
 enemy_timer = enemy_timer_max
 menu_show = True
 fact_on_menu = str(random.choice(facts_for_game))
-
+running_pause = 0
 #while loop land below
 while running:
     for event in pygame.event.get():
@@ -65,8 +66,6 @@ while running:
         player.Move(-1,0)
     if keys[pygame.K_d]:
         player.Move(1,0)
-    if keys[pygame.K_SPACE]:
-        print("pause game")
 
 #screen blitting the menu buttons + labels
     elapsed_time = time.time() - start_time
@@ -77,43 +76,51 @@ while running:
         play_button = pygame.image.load("./assets/play.png")
         play_button = pygame.transform.scale(play_button,(400,200))
         play_button_hitbox = play_button.get_rect()
-        play_button_hitbox.topleft = 200,125
-        screen.blit(play_button,(200,125))
+        play_button_hitbox.topleft = 180,125
+        screen.blit(play_button,(180,125))
         font = pygame.font.SysFont("timesnewroman", 30)
         text = font.render("Play ^", True, (0, 0, 0))
-        screen.blit(text, (370,325))
+        screen.blit(text, (350,325))
         settings_button = pygame.image.load("./assets/settings.png")
         settings_button = pygame.transform.scale(settings_button,(200,200))
         settings_button_hitbox = settings_button.get_rect()
-        settings_button_hitbox.topleft = 600,125
-        screen.blit(settings_button,(600,125))
+        settings_button_hitbox.topleft = 580,125
+        screen.blit(settings_button,(580,125))
         font = pygame.font.SysFont("timesnewroman", 30)
         text = font.render("Settings ^", True, (0, 0, 0))
-        screen.blit(text, (650,325))
+        screen.blit(text, (630,325))
         about_button = pygame.image.load("./assets/about.png")
         about_button = pygame.transform.scale(about_button,(200,200))
         about_button_hitbox = about_button.get_rect()
-        about_button_hitbox.topleft = 300,355
-        screen.blit(about_button,(350,365))
+        about_button_hitbox.topleft = 780,125
+        screen.blit(about_button,(780,125))
         font = pygame.font.SysFont("timesnewroman", 30)
-        text = font.render("<-- About", True, (0, 0, 0))
-        screen.blit(text, (575,455))
+        text = font.render("About ^", True, (0, 0, 0))
+        screen.blit(text, (840,325))
+        howtoplay_button = pygame.image.load("./assets/howtoplay.png")
+        howtoplay_button = pygame.transform.scale(howtoplay_button,(400,200))
+        howtoplay_button_hitbox = howtoplay_button.get_rect()
+        howtoplay_button_hitbox.topleft = 980,125
+        screen.blit(howtoplay_button,(980,125))
+        font = pygame.font.SysFont("timesnewroman", 30)
+        text = font.render("How To Play ^", True, (0, 0, 0))
+        screen.blit(text, (1100,325))
 #titles and real facts
         font = pygame.font.SysFont("timesnewroman", 45)
         font.set_bold(True)
         text = font.render("Save The Turtles", True, (0, 0, 0))
-        screen.blit(text, (340,0))
+        screen.blit(text, (560,0))
         font = pygame.font.SysFont("timesnewroman", 40)
         text = font.render("GaSTC Project by Jayden Wu", True, (0, 0, 0))
-        screen.blit(text, (275,50))
-        font = pygame.font.SysFont("timesnewroman", 25)
+        screen.blit(text, (500,50))
+        font = pygame.font.SysFont("timesnewroman", 35)
         font.set_bold(True)
         text = font.render("Real Facts:", True, (0, 0, 0))
-        screen.blit(text, (15, 600))
-        font = pygame.font.SysFont("timesnewroman", 15)
+        screen.blit(text, (15, 920))
+        font = pygame.font.SysFont("timesnewroman", 20)
         font.set_bold(True)
         text = font.render(str(fact_on_menu), True, (0, 0, 0))
-        screen.blit(text, (155, 607.5))
+        screen.blit(text, (215, 930))
         if event.type == pygame.MOUSEBUTTONDOWN:
             if play_button_hitbox and play_button_hitbox.collidepoint(event.pos):
                 game_start = True
@@ -127,9 +134,12 @@ while running:
                 about_show = True
                 menu_show = False
                 about_button_hitbox = None
+            if howtoplay_button_hitbox and howtoplay_button_hitbox.collidepoint(event.pos):
+                howtoplay_show = True
+                menu_show = False
+                howtoplay_button_hitbox = None
 
 #playing and showing the game
-    backgroundimage = pygame.transform.scale(backgroundimage,(1101,667))
     if game_start:
         font = pygame.font.SysFont("timesnewroman", 25)
         font.set_bold(True)
@@ -153,8 +163,8 @@ while running:
         exit_button = pygame.image.load("./assets/x.png")
         exit_button = pygame.transform.scale(exit_button,(125,100))
         exit_button_hitbox = exit_button.get_rect()
-        exit_button_hitbox.topleft = (885,0)
-        screen.blit(exit_button,(885,0))
+        exit_button_hitbox.topleft = (1380,0)
+        screen.blit(exit_button,(1380,0))
         if event.type == pygame.MOUSEBUTTONDOWN:
             if exit_button_hitbox.collidepoint(event.pos):
                 game_start = False
@@ -206,8 +216,8 @@ while running:
         exit_button = pygame.image.load("./assets/x.png")
         exit_button = pygame.transform.scale(exit_button,(125,100))
         exit_button_hitbox = exit_button.get_rect()
-        exit_button_hitbox.topleft = (885,0)
-        screen.blit(exit_button,(885,0))
+        exit_button_hitbox.topleft = (1380,0)
+        screen.blit(exit_button,(1380,0))
         if event.type == pygame.MOUSEBUTTONDOWN:
             if easy_button_hitbox.collidepoint(event.pos):
                 difficulty = "Easy"
@@ -228,8 +238,8 @@ while running:
         exit_button = pygame.image.load("./assets/x.png")
         exit_button = pygame.transform.scale(exit_button,(125,100))
         exit_button_hitbox = exit_button.get_rect()
-        exit_button_hitbox.topleft = (885,0)
-        screen.blit(exit_button,(885,0))
+        exit_button_hitbox.topleft = (1380,0)
+        screen.blit(exit_button,(1380,0))
         if event.type == pygame.MOUSEBUTTONDOWN:
             if exit_button_hitbox.collidepoint(event.pos):
                     about_show = False
@@ -237,6 +247,34 @@ while running:
         font = pygame.font.SysFont("timesnewroman", 25)
         font.set_bold(True)
         text = font.render("Save The Turtles - a game by Jayden Wu. In this game, you will navigate a", True, (0, 0, 0))
+        screen.blit(text, (20, 80))
+        text = font.render("turtle through mulitple plastic obstacles. If you hit plastic, you lose some health.", True, (0, 0, 0))
+        screen.blit(text, (20, 110))
+        text = font.render("Every once in a while, the player is asked a question about a subject of their", True, (0, 0, 0))
+        screen.blit(text, (20, 160))
+        text = font.render("liking (e.g. math, marine life,) and if they get it wrong, they will lose points and", True, (0, 0, 0))
+        screen.blit(text, (20, 190))
+        text = font.render("if they get it right they won't lose any.", True, (0, 0, 0))
+        screen.blit(text, (20, 220))
+        text = font.render("This game is targeted to the younger age group (late elementary) to empower the", True, (0, 0, 0))
+        screen.blit(text, (20, 270))
+        text = font.render("earlier generation. The sooner they know the cause, the better.", True, (0, 0, 0))
+        screen.blit(text, (20, 300))
+
+#if howtoplay was clicked
+    if howtoplay_show:
+        exit_button = pygame.image.load("./assets/x.png")
+        exit_button = pygame.transform.scale(exit_button,(125,100))
+        exit_button_hitbox = exit_button.get_rect()
+        exit_button_hitbox.topleft = (1380,0)
+        screen.blit(exit_button,(1380,0))
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if exit_button_hitbox.collidepoint(event.pos):
+                    howtoplay_show = False
+                    menu_show = True
+        font = pygame.font.SysFont("timesnewroman", 25)
+        font.set_bold(True)
+        text = font.render("Use WASD to navigate through obstacles. Obstacles include plastic bottles and bags", True, (0, 0, 0))
         screen.blit(text, (20, 80))
         text = font.render("turtle through mulitple plastic obstacles. If you hit plastic, you lose some health.", True, (0, 0, 0))
         screen.blit(text, (20, 110))

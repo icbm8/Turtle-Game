@@ -25,7 +25,7 @@ class Enemy():
         elif difficulty == "Medium":
             spawndelay = 40
         elif difficulty == "Hard":
-            spawndelay = 40
+            spawndelay = 30
         enemyspawn = random.randint(0,spawndelay)
         rol=0
         if enemyspawn == 1:
@@ -34,13 +34,13 @@ class Enemy():
                 enemynewx=-100
                 rol=lor
             elif lor == 1:
-                enemynewx=1000
+                enemynewx=1600
                 rol=lor
-            spawnypos=random.randint(0,650)
-            if spawnypos <325:
+            spawnypos=random.randint(0,975)
+            if spawnypos <487.5:
                 rol=0
                 lor = rol
-            elif spawnypos>325:
+            elif spawnypos>487.5:
                 rol=1
                 lor=rol
             enemy = Enemy(enemynewx,spawnypos,rol,5,100, screen)
