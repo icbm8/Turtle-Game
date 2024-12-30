@@ -14,6 +14,8 @@ facts_for_game = [
     "By 2050, there will be more plastic than fish in the ocean!",
     "More than 100,000 marine animals die each year due to plastic."
     ]
+math_questions = []
+marine_questions = []
 
 #initialization and variable defining, also shows image and fade, etc.
 pygame.init()
@@ -26,6 +28,7 @@ game_start = False
 settings_show = False
 about_show = False
 difficulty = "Medium"
+subject = "Math"
 screen = pygame.display.set_mode((game_width, game_height))
 running = True
 fade_image = pygame.image.load("./assets/fade.png")
@@ -169,25 +172,37 @@ while running:
 
 #if settings were clicked
     if settings_show:
-        font = pygame.font.SysFont("timesnewroman", 25)
+        font = pygame.font.SysFont("timesnewroman", 50)
         font.set_bold(True)
         text = font.render("Difficulty: " + difficulty, True, (0, 0, 0))
-        screen.blit(text, (240, 60))
+        screen.blit(text, (300, 60))
+        text = font.render("Subject: " + subject, True, (0, 0, 0))
+        screen.blit(text, (300, 350))
+        font = pygame.font.SysFont("timesnewroman", 30)
+        font.set_bold(False)
+        text = font.render("Math", True, (0, 0, 0))
+        screen.blit(text, (150, 450))
+        math_hitbox = text.get_rect()
+        math_hitbox.topleft = (150,450)
+        text = font.render("Marine Science", True, (0, 0, 0))
+        screen.blit(text, (400, 450))
+        marine_hitbox = text.get_rect()
+        marine_hitbox.topleft = (400,450)
         easy_button = pygame.image.load("./assets/easy.png")
-        easy_button = pygame.transform.scale(easy_button,(150,100))
+        easy_button = pygame.transform.scale(easy_button,(225,150))
         easy_button_hitbox = easy_button.get_rect()
-        easy_button_hitbox.topleft = (50,100)
-        screen.blit(easy_button,(50,100))
+        easy_button_hitbox.topleft = (50,150)
+        screen.blit(easy_button,(50,150))
         medium_button = pygame.image.load("./assets/medium.png")
-        medium_button = pygame.transform.scale(medium_button,(150,100))
+        medium_button = pygame.transform.scale(medium_button,(225,150))
         medium_button_hitbox = medium_button.get_rect()
-        medium_button_hitbox.topleft = (250,100)
-        screen.blit(medium_button,(250,100))
+        medium_button_hitbox.topleft = (400,150)
+        screen.blit(medium_button,(400,150))
         hard_button = pygame.image.load("./assets/hard.png")
-        hard_button = pygame.transform.scale(hard_button,(150,100))
+        hard_button = pygame.transform.scale(hard_button,(225,150))
         hard_button_hitbox = hard_button.get_rect()
-        hard_button_hitbox.topleft = (450,100)
-        screen.blit(hard_button,(450,100))
+        hard_button_hitbox.topleft = (750,150)
+        screen.blit(hard_button,(750,150))
         exit_button = pygame.image.load("./assets/x.png")
         exit_button = pygame.transform.scale(exit_button,(125,100))
         exit_button_hitbox = exit_button.get_rect()
@@ -195,14 +210,18 @@ while running:
         screen.blit(exit_button,(885,0))
         if event.type == pygame.MOUSEBUTTONDOWN:
             if easy_button_hitbox.collidepoint(event.pos):
-                    difficulty = "Easy"
+                difficulty = "Easy"
             if medium_button_hitbox.collidepoint(event.pos):
-                    difficulty = "Medium"
+                difficulty = "Medium"
             if hard_button_hitbox.collidepoint(event.pos):
-                    difficulty = "Hard"
+                difficulty = "Hard"
             if exit_button_hitbox.collidepoint(event.pos):
-                    settings_show = False
-                    menu_show = True
+                settings_show = False
+                menu_show = True
+            if math_hitbox.collidepoint(event.pos):
+                subject = "Math"
+            if marine_hitbox.collidepoint(event.pos):
+                subject = "Marine Science"
 
 #if about was clicked
     if about_show:
@@ -218,15 +237,19 @@ while running:
         font = pygame.font.SysFont("timesnewroman", 25)
         font.set_bold(True)
         text = font.render("Save The Turtles - a game by Jayden Wu. In this game, you will navigate a", True, (0, 0, 0))
-        screen.blit(text, (20, 60))
-        text = font.render("turtle through mulitple plastic obstacles.", True, (0, 0, 0))
-        screen.blit(text, (20, 90))
+        screen.blit(text, (20, 80))
+        text = font.render("turtle through mulitple plastic obstacles. If you hit plastic, you lose some health.", True, (0, 0, 0))
+        screen.blit(text, (20, 110))
         text = font.render("Every once in a while, the player is asked a question about a subject of their", True, (0, 0, 0))
-        screen.blit(text, (20, 140))
+        screen.blit(text, (20, 160))
         text = font.render("liking (e.g. math, marine life,) and if they get it wrong, they will lose points and", True, (0, 0, 0))
-        screen.blit(text, (20, 170))
-        text = font.render(" if they get it right they won't lose any.", True, (0, 0, 0))
-        screen.blit(text, (20, 200))
+        screen.blit(text, (20, 190))
+        text = font.render("if they get it right they won't lose any.", True, (0, 0, 0))
+        screen.blit(text, (20, 220))
+        text = font.render("This game is targeted to the younger age group (late elementary) to empower the", True, (0, 0, 0))
+        screen.blit(text, (20, 270))
+        text = font.render("earlier generation. The sooner they know the cause, the better.", True, (0, 0, 0))
+        screen.blit(text, (20, 300))
 
 #final captions and text including FPS and caption
     font = pygame.font.SysFont("timesnewroman", 15)
