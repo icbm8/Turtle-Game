@@ -386,6 +386,8 @@ while running:
     font.set_bold(True)
     text = font.render("FPS: " + str(round(clock.get_fps())), True, (0, 0, 0))
     screen.blit(text, (10,10))
+    text = font.render("v. 3.8  mobile is not supported ", True, (0, 0, 0))
+    screen.blit(text, (100,10))
     pygame.display.flip()
     clock.tick(60) 
     pygame.display.set_caption("Save the Turtles - " + str(round(elapsed_time)) + " Seconds Played")
