@@ -89,6 +89,7 @@ clock = pygame.time.Clock()
 player = Player(screen,450)
 enemylist = []
 foodlist = []
+squidlist = []
 enemy_timer_max = 25
 menu_show=True
 enemy_timer = enemy_timer_max
@@ -257,10 +258,18 @@ while running:
                 health-=10
             enemy.update(screen, enemylist)
 
+        #squid collision
+        for squid in squidlist:
+            if player.rect.colliderect(squid.hitbox):
+                squid.isvisible=False
+                health-=10
+            squid.update(screen, squidlist)
+
         #other
         player.update()
         Enemy.createenemy(enemylist, screen)
         Food.createfood(foodlist, screen)
+        Squid.createenemy(squidlist, screen)
         if health == 0:
              game_start == False
 
@@ -386,7 +395,7 @@ while running:
     font.set_bold(True)
     text = font.render("FPS: " + str(round(clock.get_fps())), True, (0, 0, 0))
     screen.blit(text, (10,10))
-    text = font.render("v. 3.8  mobile is not supported ", True, (0, 0, 0))
+    text = font.render("v. 3.81  mobile is not supported ", True, (0, 0, 0))
     screen.blit(text, (100,10))
     pygame.display.flip()
     clock.tick(60) 

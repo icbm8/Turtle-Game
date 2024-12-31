@@ -12,7 +12,7 @@ class Enemy():
         self.size = size
         images = ["./assets/plasticbag.png","./assets/plasticbottle.png"]
         self.image = pygame.image.load(images[random.randint(0,1)])
-        self.image = pygame.transform.scale(self.image,(self.size,self.size))
+        self.image = pygame.transform.smoothscale(self.image,(self.size,self.size))
         self.hitbox = self.image.get_rect()
         self.hitbox.topleft = (self.x,self.y)
         self.animation_timer_max = 16
@@ -63,21 +63,21 @@ class Squid():
         self.y = y
         self.rol=rol
         self.screen = screen
-        self.isvisible=True
+        self.isvisible = True
         self.speed = speed
         self.size = size
         self.image = pygame.image.load("./assets/squid.png")
-        self.image = pygame.transform.scale(self.image,(self.size,self.size))
+        self.image = pygame.transform.smoothscale(self.image,(self.size,self.size))
         self.hitbox = self.image.get_rect()
         self.hitbox.topleft = (self.x,self.y)
-    def createenemy(enemylist, screen):
+    def createenemy(squidlist, screen):
         from main import difficulty
         if difficulty == "Easy":
-            spawndelay = 140
+            spawndelay = 90
         elif difficulty == "Medium":
-            spawndelay = 100
-        elif difficulty == "Hard":
             spawndelay = 60
+        elif difficulty == "Hard":
+            spawndelay = 30
         enemyspawn = random.randint(0,spawndelay)
         rol=0
         if enemyspawn == 1:
@@ -95,9 +95,9 @@ class Squid():
             elif spawnypos>487.5:
                 rol=1
                 lor=rol
-            enemy = Enemy(enemynewx,spawnypos,rol,5,100, screen)
-            enemylist.append(enemy)
-    def update(self, screen, enemylist):
+            squid = Squid(enemynewx,spawnypos,rol,5,100, screen)
+            squidlist.append(squid)
+    def update(self, screen, squidlist):
         if self.isvisible:
             screen.blit(self.image,(self.x, self.y))
             self.hitbox.topleft = (self.x,self.y)
@@ -108,4 +108,4 @@ class Squid():
                 self.x-=self.speed
                 self.hitbox.x -= self.speed
         else:
-            enemylist.remove(self)
+            squidlist.remove(self)
