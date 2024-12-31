@@ -5,7 +5,7 @@ import time
 import pygame.transform
 from player import Player
 from food import Food
-from plastic_enemies import Enemy
+from enemies import Enemy
 
 #starts time and adds facts
 start_time = time.time()
@@ -53,7 +53,6 @@ while running:
             running = False
         if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
             running = False
-
     mouse_x,mouse_y = pygame.mouse.get_pos()       
     keys = pygame.key.get_pressed()
 
@@ -188,7 +187,7 @@ while running:
         text = font.render("Difficulty: " + difficulty, True, (0, 0, 0))
         screen.blit(text, (560, 20))
         text = font.render("Subject: " + subject, True, (0, 0, 0))
-        screen.blit(text, (300, 350))
+        screen.blit(text, (560, 350))
         font = pygame.font.SysFont("sansserif", 30)
         font.set_bold(False)
         text = font.render("Math", True, (0, 0, 0))
@@ -200,20 +199,20 @@ while running:
         marine_hitbox = text.get_rect()
         marine_hitbox.topleft = (400,450)
         easy_button = pygame.image.load("./assets/easy.png")
-        easy_button = pygame.transform.smoothscale(easy_button,(225,150))
+        easy_button = pygame.transform.smoothscale(easy_button,(338,225))
         easy_button_hitbox = easy_button.get_rect()
-        easy_button_hitbox.topleft = (50,150)
-        screen.blit(easy_button,(50,150))
+        easy_button_hitbox.topleft = (200,75)
+        screen.blit(easy_button,(200,75))
         medium_button = pygame.image.load("./assets/medium.png")
-        medium_button = pygame.transform.smoothscale(medium_button,(225,150))
+        medium_button = pygame.transform.smoothscale(medium_button,(338,225))
         medium_button_hitbox = medium_button.get_rect()
-        medium_button_hitbox.topleft = (400,150)
-        screen.blit(medium_button,(400,150))
+        medium_button_hitbox.topleft = (600,75)
+        screen.blit(medium_button,(600,75))
         hard_button = pygame.image.load("./assets/hard.png")
-        hard_button = pygame.transform.smoothscale(hard_button,(225,150))
+        hard_button = pygame.transform.smoothscale(hard_button,(338,225))
         hard_button_hitbox = hard_button.get_rect()
-        hard_button_hitbox.topleft = (750,150)
-        screen.blit(hard_button,(750,150))
+        hard_button_hitbox.topleft = (1000,75)
+        screen.blit(hard_button,(1000,75))
         exit_button = pygame.image.load("./assets/x.png")
         exit_button = pygame.transform.smoothscale(exit_button,(125,100))
         exit_button_hitbox = exit_button.get_rect()
