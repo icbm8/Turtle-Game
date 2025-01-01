@@ -22,11 +22,11 @@ class Food():
     def createfood(foodlist, screen):
         from main import difficulty
         if difficulty == "Easy":
-            foodspawn = random.randint(0,30)
+            foodspawn = random.randint(0,20)
         elif difficulty == "Medium":
-            foodspawn = random.randint(0,40)
-        elif difficulty == "Hard":
             foodspawn = random.randint(0,50)
+        elif difficulty == "Hard":
+            foodspawn = random.randint(0,80)
         frol=0
         if foodspawn == 1:
             foodspawnin = random.randint(0,1)

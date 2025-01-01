@@ -262,6 +262,7 @@ while running:
         for squid in squidlist:
             if player.rect.colliderect(squid.hitbox):
                 squid.isvisible=False
+                screen.blit(fade_image,(0,0))
                 health-=10
             squid.update(screen, squidlist)
 
@@ -395,7 +396,7 @@ while running:
     font.set_bold(True)
     text = font.render("FPS: " + str(round(clock.get_fps())), True, (0, 0, 0))
     screen.blit(text, (10,10))
-    text = font.render("v. 3.81  mobile is not supported ", True, (0, 0, 0))
+    text = font.render("v. 3.9  mobile is not supported ", True, (0, 0, 0))
     screen.blit(text, (100,10))
     pygame.display.flip()
     clock.tick(60) 
