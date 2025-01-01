@@ -3,6 +3,7 @@ import pygame
 import random
 import time
 import math
+import json
 import pygame.transform
 from player import Player
 from food import Food
@@ -37,9 +38,18 @@ game_width = 1500
 game_height = 975
 screen = pygame.display.set_mode((game_width, game_height))
 
+#high score saving
+def save_high_score(score, filename="high_score.json"):
+    with open(filename, "w") as file:
+        json.dump({"high_score": high_score}, file)
+def load_high_score(filename="high_score.json"):
+    with open(filename, "r") as file:
+        data = json.load(file)
+        return data.get("high_score", 0)
+
 #variables
 score = 0
-highscore = 0
+high_score = load_high_score()
 health = 100
 score = 0
 difficulty = "Medium"
@@ -190,6 +200,7 @@ while running:
             if quit_button_hitbox and quit_button_hitbox.collidepoint(event.pos):
                 menu_show = False
                 save_high_score_show = True
+    
     #playing and showing the game
     if game_start:
 
@@ -199,11 +210,11 @@ while running:
         text = font.render("Save the Turtles by Jayden Wu", True, (0, 0, 0))
         screen.blit(text, (10, 30))
 
-        #blitting score, highscore and health
+        #blitting score, high score and health
         font.set_bold(False)
         text = font.render("Score: " + str(score), True, (0, 0, 0))    
         screen.blit(text, (10, 50))
-        text = font.render("High Score: " + str(highscore), True, (0, 0, 0))    
+        text = font.render("High Score: " + str(high_score), True, (0, 0, 0))    
         screen.blit(text, (10, 75))
         text = font.render("Health: " + str(health), True, (0, 0, 0))
         screen.blit(text, (10,100))
@@ -256,9 +267,9 @@ while running:
         if health == 0:
              game_start = False
              menu_show = True
-        if score > highscore:
-            highscore = score
-
+        if score > high_score:
+            high_score = score
+    
     #if settings were clicked
     if settings_show:
 
@@ -386,9 +397,23 @@ while running:
                     save_high_score_show = False
                     menu_show = True
         
-        screen.blit(save_high_score_button, (500,400))
-        screen.blit(yes_button, (650,500))
-        screen.blit(no_button, (750,500))
+        screen.blit(save_high_score_button, (300,100))
+        yes_button_hitbox = yes_button.get_rect()
+        yes_button_hitbox.topleft = (400,360)
+        screen.blit(yes_button, (400,360))
+        no_button_hitbox = no_button.get_rect()
+        no_button_hitbox.topleft = (900,360)
+        screen.blit(no_button, (900,360))
+        font = pygame.font.SysFont("sansserif", 50)
+        font.set_bold(True)
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if yes_button_hitbox.collidepoint(event.pos):
+                save_high_score(high_score)
+                time.sleep(3)
+                pygame.quit()
+            if no_button_hitbox.collidepoint(event.pos):
+                time.sleep(3)
+                pygame.quit()
         if quit:
             pygame.quit()
 
@@ -397,7 +422,7 @@ while running:
     font.set_bold(True)
     text = font.render("FPS: " + str(round(clock.get_fps())), True, (0, 0, 0))
     screen.blit(text, (10,10))
-    text = font.render("v. 4.1  mobile is not supported ", True, (0, 0, 0))
+    text = font.render("v. 4.3  mobile is not supported ", True, (0, 0, 0))
     screen.blit(text, (90,10))
     pygame.display.flip()
     clock.tick(60) 

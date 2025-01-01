@@ -50,15 +50,15 @@ def load_images():
 
     #save highscore button image
     save_high_score_button = pygame.image.load("./assets/save_high_score.png")
-    save_high_score_button = pygame.transform.smoothscale(save_high_score_button,(472,260))
+    save_high_score_button = pygame.transform.smoothscale(save_high_score_button,(944,520))
 
     #yes button image
     yes_button = pygame.image.load("./assets/yes.png")
-    yes_button = pygame.transform.smoothscale(yes_button,(150,100))
+    yes_button = pygame.transform.smoothscale(yes_button,(200,200))
 
     #no button image
     no_button = pygame.image.load("./assets/no.png")
-    no_button = pygame.transform.smoothscale(no_button,(150,100))
+    no_button = pygame.transform.smoothscale(no_button,(200,200))
 
     #exit button image
     exit_button = pygame.image.load("./assets/x.png")
