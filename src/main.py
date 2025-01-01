@@ -372,6 +372,8 @@ while running:
     if howtoplay_show:
 
         #blitting exit button and creating hitbox
+        exit_button_hitbox = exit_button.get_rect()
+        exit_button_hitbox.topleft = (1380,0)
         screen.blit(exit_button,(1380,0))
         if event.type == pygame.MOUSEBUTTONDOWN:
             if exit_button_hitbox.collidepoint(event.pos):
@@ -397,7 +399,7 @@ while running:
     font.set_bold(True)
     text = font.render("FPS: " + str(round(clock.get_fps())), True, (0, 0, 0))
     screen.blit(text, (10,10))
-    text = font.render("v. 3.91  mobile is not supported ", True, (0, 0, 0))
+    text = font.render("v. 3.92  mobile is not supported ", True, (0, 0, 0))
     screen.blit(text, (100,10))
     pygame.display.flip()
     clock.tick(60) 
