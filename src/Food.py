@@ -12,6 +12,8 @@ class Food():
         images = ["./assets/fish1.png","./assets/fish2.png","./assets/fish3.png","./assets/fish4.png","./assets/fish5.png"]
         self.image = pygame.image.load(images[random.randint(0,4)])
         self.image = pygame.transform.scale(self.image,(int(self.size*0.75),int(self.size*0.5)))
+        if rol == 0:
+            self.image = pygame.transform.flip(self.image, True, False)
         self.hitbox = self.image.get_rect()
         self.hitbox.topleft = (self.x,self.y)
         self.animation_timer_max = 16
@@ -19,7 +21,7 @@ class Food():
         self.swimming_frame = 0
         self.isvisible=True
 
-    def createfood(foodlist, screen):
+    def createfood(foodlist,screen):
         from main import difficulty
         if difficulty == "Easy":
             foodspawn = random.randint(0,20)
