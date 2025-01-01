@@ -2,6 +2,7 @@
 import pygame
 import random
 import time
+import math
 import pygame.transform
 from player import Player
 from food import Food
@@ -159,11 +160,11 @@ while running:
                 
         #blitting quit button and label
         quit_button_hitbox = quit_button.get_rect()
-        quit_button_hitbox.topleft = 500,360
-        screen.blit(quit_button,(500,360))
+        quit_button_hitbox.topleft = 560,360
+        screen.blit(quit_button,(560,360))
         font = pygame.font.SysFont("sansserif", 30)
         text = font.render("^ Quit ^", True, (0, 0, 0))
-        screen.blit(text, (665,570))
+        screen.blit(text, (720,570))
 
         #titles and real facts
 
@@ -400,6 +401,12 @@ while running:
     screen.blit(text, (100,10))
     pygame.display.flip()
     clock.tick(60) 
-    pygame.display.set_caption("Save the Turtles - " + str(round(elapsed_time)) + " Seconds Played")
-
+    if round(elapsed_time) < 60:
+        pygame.display.set_caption("Save the Turtles - " + str(round(elapsed_time)) + " Seconds Played")
+    elif round(elapsed_time) == 60:
+        pygame.display.set_caption("Save the Turtles - 1 Minute Played")
+    elif round(elapsed_time) > 60:
+        pygame.display.set_caption("Save the Turtles - " + str(math.floor(math.floor(elapsed_time)/60)) + " Minutes and " + str(math.floor(elapsed_time) % 60) + " Seconds Played")
+        if math.floor(elapsed_time) % 60 == 0:
+            pygame.display.set_caption("Save the Turtles - " + str(math.floor(elapsed_time/60)) + " Minutes Played")
 #end
