@@ -397,7 +397,7 @@ while running:
     font.set_bold(True)
     text = font.render("FPS: " + str(round(clock.get_fps())), True, (0, 0, 0))
     screen.blit(text, (10,10))
-    text = font.render("v. 3.92  mobile is not supported ", True, (0, 0, 0))
+    text = font.render("v. 4.1  mobile is not supported ", True, (0, 0, 0))
     screen.blit(text, (90,10))
     pygame.display.flip()
     clock.tick(60) 
