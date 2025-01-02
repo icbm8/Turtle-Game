@@ -165,7 +165,7 @@ while running:
 
         #blitting subtitle
         font = pygame.font.SysFont("sansserif", 55)
-        text = font.render("GaSTC Project by Jayden Wu", True, (0, 0, 0))
+        text = font.render("GASTC Project by Jayden Wu", True, (0, 0, 0))
         screen.blit(text, (500,70))
 
         #blitting real facts
@@ -422,7 +422,7 @@ while running:
     font.set_bold(True)
     text = font.render("FPS: " + str(round(clock.get_fps())), True, (0, 0, 0))
     screen.blit(text, (10,10))
-    text = font.render("v. 4.8  mobile is not supported ", True, (0, 0, 0))
+    text = font.render("v. 4.81  mobile is not supported ", True, (0, 0, 0))
     screen.blit(text, (90,10))
     pygame.display.flip()
     clock.tick(60) 
