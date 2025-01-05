@@ -18,14 +18,17 @@ facts_for_game = [
     "By 2050, there will be more plastic than fish in the ocean!",
     "More than 100,000 marine animals die each year due to plastic."
     ]
+fact_on_menu = str(random.choice(facts_for_game))
 math_questions = ["filla tecst meth"]
 marine_questions = ["filla tecst merone"]
 
 #initialization and variable defining, also shows image and fade, etc.
 pygame.init()
+pygame.mixer.init()
 
 #booleans
 running = True
+menu_show = True
 game_start = False
 settings_show = False
 about_show = False
@@ -38,18 +41,21 @@ game_width = 1500
 game_height = 975
 screen = pygame.display.set_mode((game_width, game_height))
 
+#variables
+FPS = 60
+score = 0
+
 #high score saving
 def save_high_score(score, filename="high_score.json"):
     with open(filename, "w") as file:
         json.dump({"high_score": high_score}, file)
 def load_high_score(filename="high_score.json"):
-    with open(filename, "r") as file:
+     with open(filename, "r") as file:
         data = json.load(file)
         return data.get("high_score", 0)
-
-#variables
-score = 0
 high_score = load_high_score()
+
+#other variables
 health = 100
 score = 0
 difficulty = "Medium"
@@ -74,17 +80,49 @@ yes_button = images["yes_button"]
 no_button = images["no_button"]
 exit_button = images["exit_button"]
 
+#font_loading
+main_title_font = pygame.font.SysFont("sansserif", 65, bold = True)
+main_title_text = main_title_font.render("Save The Turtles", True, (0, 0, 0))
+subtitle_font = pygame.font.SysFont("sansserif", 55)
+subtitle_text = subtitle_font.render("GASTC Project by Jayden Wu", True, (0, 0, 0))
+facts_title_font = pygame.font.SysFont("sansserif", 40, bold = True)
+facts_title_text = facts_title_font.render("Real Facts:", True, (0, 0, 0))
+facts_font = pygame.font.SysFont("sansserif", 25, bold = True)
+facts_text = facts_font.render(str(fact_on_menu), True, (0, 0, 0))
+
+#labels
+labels_font = pygame.font.SysFont("sansserif", 30)
+play_label_text = labels_font.render("^ Play ^", True, (0, 0, 0))
+settings_label_text = labels_font.render("^ Settings ^", True, (0, 0, 0))
+about_label_text = labels_font.render("^ About ^", True, (0, 0, 0))
+how_to_play_label_text = labels_font.render("^ How To Play ^", True, (0, 0, 0))
+quit_label_text = labels_font.render("^ Quit ^", True, (0, 0, 0))
+
+#game labels
+game_labels_font = pygame.font.SysFont("sansserif", 25, bold = True)
+game_title_text = game_labels_font.render("Save the Turtles by Jayden Wu", True, (0, 0, 0))
+score_text = game_labels_font.render("Score: " + str(score), True, (0, 0, 0))    
+high_score_text = game_labels_font.render("High Score: " + str(high_score), True, (0, 0, 0))
+health_text = game_labels_font.render("Health: " + str(health), True, (0, 0, 0))  
+
 #other
 clock = pygame.time.Clock()
 player = Player(screen,450)
+
+#lists
 enemylist = []
 foodlist = []
 squidlist = []
+
+#other variables
 enemy_timer_max = 25
-menu_show=True
 enemy_timer = enemy_timer_max
-fact_on_menu = str(random.choice(facts_for_game))
 running_pause = 0
+
+#music loading and playing
+pygame.mixer.music.load("./assets/menu_music.mp3")
+pygame.mixer.music.set_volume(0.5)
+pygame.mixer.music.play(loops=-1)
 
 #while loop land below
 while running:
@@ -108,9 +146,9 @@ while running:
 
     #other
     elapsed_time = time.time() - start_time
+
+    #blitting background image
     screen.blit(background_image,(0,0))
-    font = pygame.font.SysFont("sansserif", 45)
-    font.set_bold(True)
 
     #showing the menu
     if menu_show:
@@ -119,63 +157,42 @@ while running:
         play_button_hitbox = play_button.get_rect()
         play_button_hitbox.topleft = 160,125
         screen.blit(play_button,(160,125))
-        font = pygame.font.SysFont("sansserif", 30)
-        text = font.render("^ Play ^", True, (0, 0, 0))
-        screen.blit(text, (325,335))
+        screen.blit(play_label_text, (325,335))
 
         #blitting settings button and label
         settings_button_hitbox = settings_button.get_rect()
         settings_button_hitbox.topleft = 560,125
         screen.blit(settings_button,(560,125))
-        font = pygame.font.SysFont("sansserif", 30)
-        text = font.render("^ Settings ^", True, (0, 0, 0))
-        screen.blit(text, (605,335))
+        screen.blit(settings_label_text, (605,335))
 
         #blitting about button and label
         about_button_hitbox = about_button.get_rect()
         about_button_hitbox.topleft = 770,125
         screen.blit(about_button,(770,125))
-        font = pygame.font.SysFont("sansserif", 30)
-        text = font.render("^ About ^", True, (0, 0, 0))
-        screen.blit(text, (820,335))
+        screen.blit(about_label_text, (820,335))
 
         #blitting how to play button and label
         how_to_play_button_hitbox = how_to_play_button.get_rect()
         how_to_play_button_hitbox.topleft = 970,125
         screen.blit(how_to_play_button,(970,125))
-        font = pygame.font.SysFont("sansserif", 30)
-        text = font.render("^ How To Play ^", True, (0, 0, 0))
-        screen.blit(text, (1080,335))
+        screen.blit(how_to_play_label_text, (1080,335))
                 
         #blitting quit button and label
         quit_button_hitbox = quit_button.get_rect()
         quit_button_hitbox.topleft = 560,360
         screen.blit(quit_button,(560,360))
-        font = pygame.font.SysFont("sansserif", 30)
-        text = font.render("^ Quit ^", True, (0, 0, 0))
-        screen.blit(text, (720,570))
+        screen.blit(quit_label_text, (720,570))
 
         #titles and real facts
 
         #blitting main title
-        font = pygame.font.SysFont("sansserif", 65)
-        font.set_bold(True)
-        text = font.render("Save The Turtles", True, (0, 0, 0))
-        screen.blit(text, (560,20))
+        screen.blit(main_title_text, (560,20))
 
         #blitting subtitle
-        font = pygame.font.SysFont("sansserif", 55)
-        text = font.render("GASTC Project by Jayden Wu", True, (0, 0, 0))
-        screen.blit(text, (500,70))
+        screen.blit(subtitle_text, (500,70))
 
         #blitting real facts
-        font = pygame.font.SysFont("sansserif", 40)
-        font.set_bold(True)
-        text = font.render("Real Facts:", True, (0, 0, 0))
-        screen.blit(text, (200, 600))
-        font = pygame.font.SysFont("sansserif", 25)
-        font.set_bold(True)
-        text = font.render(str(fact_on_menu), True, (0, 0, 0))
+        screen.blit(facts_title_text, (200, 600))
         screen.blit(text, (380, 605.5))
 
         #hitbox collisions
@@ -204,29 +221,16 @@ while running:
     #playing and showing the game
     if game_start:
 
-        #blitting game title
-        font = pygame.font.SysFont("sansserif", 25)
-        font.set_bold(True)
-        text = font.render("Save the Turtles by Jayden Wu", True, (0, 0, 0))
-        screen.blit(text, (10, 30))
+        #blitting game title, score, high score, health
+        screen.blit(game_title_text, (10, 30))
+        screen.blit(score_text, (10, 50))
+        screen.blit(high_score_text, (10, 75))
+        screen.blit(health_text, (10,100))
 
-        #blitting score, high score and health
-        font.set_bold(False)
-        text = font.render("Score: " + str(score), True, (0, 0, 0))    
-        screen.blit(text, (10, 50))
-        text = font.render("High Score: " + str(high_score), True, (0, 0, 0))    
-        screen.blit(text, (10, 75))
-        text = font.render("Health: " + str(health), True, (0, 0, 0))
-        screen.blit(text, (10,100))
-
-        #blitting exit
-        exit_button = pygame.image.load("./assets/x.png")
-        exit_button = pygame.transform.smoothscale(exit_button,(125,100))
+        #blitting exit button and exit button collision
         exit_button_hitbox = exit_button.get_rect()
         exit_button_hitbox.topleft = (1380,0)
         screen.blit(exit_button,(1380,0))
-
-        #exit button collision
         if event.type == pygame.MOUSEBUTTONDOWN:
             if exit_button_hitbox.collidepoint(event.pos):
                 game_start = False
@@ -255,7 +259,7 @@ while running:
         for squid in squidlist:
             if player.rect.colliderect(squid.hitbox):
                 squid.isvisible=False
-                screen.blit(fade_image,(0,0))
+
                 health-=20
             squid.update(screen, squidlist)
 
@@ -274,8 +278,7 @@ while running:
     if settings_show:
 
         #blitting settings text
-        font = pygame.font.SysFont("sansserif", 50)
-        font.set_bold(True)
+        font = pygame.font.SysFont("sansserif", 50, bold = True)
         text = font.render("Difficulty: " + difficulty, True, (0, 0, 0))
         screen.blit(text, (560, 20))
         text = font.render("Subject: " + subject, True, (0, 0, 0))
@@ -342,8 +345,7 @@ while running:
                     menu_show = True
 
         #about text
-        font = pygame.font.SysFont("sansserif", 40)
-        font.set_bold(True)
+        font = pygame.font.SysFont("sansserif", 40, bold = True)
         text = font.render("Save The Turtles - a game by Jayden Wu. In this game, you will navigate a turtle through", True, (0, 0, 0))
         screen.blit(text, (20, 105))
         text = font.render("multiple plastic obstacles. If you hit plastic, you will lose some health.", True, (0, 0, 0))
@@ -372,8 +374,7 @@ while running:
                     menu_show = True
 
         #how to play text
-        font = pygame.font.SysFont("sansserif", 40)
-        font.set_bold(True)
+        font = pygame.font.SysFont("sansserif", 40, bold = True)
         text = font.render("Use WASD or arrow keys to navigate your turtle! You start with 100 health and each time you", True, (0, 0, 0))
         screen.blit(text, (20, 105))
         text = font.render("hit an obstacle, for example a plastic bag or bottle, you will lose 10 health. Each time you eat", True, (0, 0, 0))
@@ -404,28 +405,24 @@ while running:
         no_button_hitbox = no_button.get_rect()
         no_button_hitbox.topleft = (900,360)
         screen.blit(no_button, (900,360))
-        font = pygame.font.SysFont("sansserif", 50)
-        font.set_bold(True)
+        font = pygame.font.SysFont("sansserif", 50, bold = True)
         if event.type == pygame.MOUSEBUTTONDOWN:
             if yes_button_hitbox.collidepoint(event.pos):
                 save_high_score(high_score)
-                time.sleep(3)
                 pygame.quit()
             if no_button_hitbox.collidepoint(event.pos):
-                time.sleep(3)
                 pygame.quit()
         if quit:
             pygame.quit()
 
     #final captions and text including FPS and caption
-    font = pygame.font.SysFont("sansserif", 25)
-    font.set_bold(True)
+    clock.tick(FPS)
+    font = pygame.font.SysFont("sansserif", 25, bold = True)
     text = font.render("FPS: " + str(round(clock.get_fps())), True, (0, 0, 0))
     screen.blit(text, (10,10))
     text = font.render("v. 4.81  mobile is not supported ", True, (0, 0, 0))
     screen.blit(text, (90,10))
     pygame.display.flip()
-    clock.tick(60) 
     if round(elapsed_time) < 60:
         pygame.display.set_caption("Save the Turtles - " + str(round(elapsed_time)) + " Seconds Played")
     elif round(elapsed_time) == 60:
