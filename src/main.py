@@ -60,6 +60,8 @@ health = 100
 score = 0
 difficulty = "Medium"
 subject = "Math"
+blackout_show = False
+blackout_var = 255
 
 #image_loading
 images = load_images()
@@ -79,6 +81,7 @@ save_high_score_button = images["save_high_score_button"]
 yes_button = images["yes_button"]
 no_button = images["no_button"]
 exit_button = images["exit_button"]
+blackout = images["blackout"]
 
 #font_loading
 main_title_font = pygame.font.SysFont("sansserif", 65, bold = True)
@@ -107,7 +110,7 @@ how_to_play_text3 = how_to_play_font.render("a fish, you gain 1 point and each 5
 how_to_play_text4 = how_to_play_font.render("If you hit a squid, you will lose 20 health and have obscured vision for a few seconds.", True, (0, 0, 0))
 how_to_play_text5 = how_to_play_font.render("Survive as long as you can!", True, (0, 0, 0))
 display_caps_font = pygame.font.SysFont("sansserif", 25, bold = True)
-version_text = display_caps_font.render("v. 4.81  mobile is not supported ", True, (0, 0, 0))
+version_text = display_caps_font.render("v. 4.92  mobile is not supported ", True, (0, 0, 0))
 
 #labels
 labels_font = pygame.font.SysFont("sansserif", 30)
@@ -120,9 +123,8 @@ quit_label_text = labels_font.render("^ Quit ^", True, (0, 0, 0))
 #game labels
 game_labels_font = pygame.font.SysFont("sansserif", 25, bold = True)
 game_title_text = game_labels_font.render("Save the Turtles by Jayden Wu", True, (0, 0, 0))
-score_text = game_labels_font.render("Score: " + str(score), True, (0, 0, 0))    
-high_score_text = game_labels_font.render("High Score: " + str(high_score), True, (0, 0, 0))
-health_text = game_labels_font.render("Health: " + str(health), True, (0, 0, 0)) 
+you_lost_font = pygame.font.SysFont("sansserif", 50, bold = True)
+you_lost_text = you_lost_font.render("You Lost! Press R to Restart, or press the exit button to go back to the menu.", True, (0, 0, 0))
 
 #lists
 enemylist = []
@@ -136,7 +138,7 @@ running_pause = 0
 
 #music loading and playing
 pygame.mixer.music.load("./assets/menu_music.mp3")
-pygame.mixer.music.set_volume(0.5)
+pygame.mixer.music.set_volume(0)
 pygame.mixer.music.play(loops=-1)
 
 #while loop land below
@@ -238,6 +240,9 @@ while running:
 
         #blitting game title, score, high score, health
         screen.blit(game_title_text, (10, 30))
+        score_text = game_labels_font.render("Score: " + str(score), True, (0, 0, 0))    
+        high_score_text = game_labels_font.render("High Score: " + str(high_score), True, (0, 0, 0))
+        health_text = game_labels_font.render("Health: " + str(health), True, (0, 0, 0)) 
         screen.blit(score_text, (10, 50))
         screen.blit(high_score_text, (10, 75))
         screen.blit(health_text, (10,100))
@@ -274,21 +279,53 @@ while running:
         for squid in squidlist:
             if player.rect.colliderect(squid.hitbox):
                 squid.isvisible=False
-
-                health-=20
+                blackout_show = True
+                health-=15
             squid.update(screen, squidlist)
 
         #other
+
+        #blackout
+        if blackout_show:
+            if difficulty == "Easy":
+                blackout_change = 25
+            if difficulty == "Medium":
+                blackout_change = 15
+            if difficulty == "Medium":
+                blackout_change = 5
+            if blackout_var >= 0:
+                blackout_var -= blackout_change
+                blackout.set_alpha(blackout_var)
+                screen.blit(blackout,(0,0))
+        if blackout_var <= 0:
+            blackout_show = False
+            blackout_var = 255
+
         player.update()
         Enemy.createenemy(enemylist, screen)
         Food.createfood(foodlist, screen)
         Squid.createenemy(squidlist, screen)
-        if health == 0:
-             game_start = False
-             menu_show = True
         if score > high_score:
             high_score = score
-    
+
+    #if game is lost
+    if health <= 0 and menu_show == False and about_show == False and how_to_play_show == False and settings_show == False:
+        screen.blit(you_lost_text,(200,300))
+        game_start = False
+        exit_button_hitbox = exit_button.get_rect()
+        exit_button_hitbox.topleft = (1380,0)
+        screen.blit(exit_button,(1380,0))
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if exit_button_hitbox.collidepoint(event.pos):
+                menu_show = True
+                game_start = True
+                health = 100
+                score = 0
+        if keys[pygame.K_r]:
+            game_start = True
+            health = 100
+            score = 0
+
     #if settings were clicked
     if settings_show:
 
