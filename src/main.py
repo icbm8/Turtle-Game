@@ -62,6 +62,8 @@ difficulty = "Medium"
 subject = "Math"
 blackout_show = False
 blackout_var = 255
+speed_change = 0
+speed_change_time = 0
 
 #image_loading
 images = load_images()
@@ -93,8 +95,7 @@ facts_title_text = facts_title_font.render("Real Facts:", True, (0, 0, 0))
 facts_font = pygame.font.SysFont("sansserif", 25, bold = True)
 facts_text = facts_font.render(str(fact_on_menu), True, (0, 0, 0))
 settings_font = pygame.font.SysFont("sansserif", 50, bold = True)
-difficulty_text = settings_font.render("Difficulty: " + difficulty, True, (0, 0, 0))
-subject_text = settings_font.render("Subject: " + subject, True, (0, 0, 0))
+
 about_font = pygame.font.SysFont("sansserif", 40)
 about_text1 = about_font.render("Save The Turtles - a game by Jayden Wu. In this game, you will navigate a turtle through", True, (0, 0, 0))
 about_text2 = about_font.render("multiple plastic obstacles. If you hit plastic, you will lose some health.", True, (0, 0, 0))
@@ -105,9 +106,9 @@ about_text6 = about_font.render("This game is targeted to the younger age group 
 about_text7 = about_font.render("generation. The sooner people know, the better.", True, (0, 0, 0))
 how_to_play_font = pygame.font.SysFont("sansserif", 40, bold = True)
 how_to_play_text1 = how_to_play_font.render("Use WASD or arrow keys to navigate your turtle! You start with 100 health and each time you", True, (0, 0, 0))
-how_to_play_text2 = how_to_play_font.render("hit an obstacle, for example a plastic bag or bottle, you will lose 10 health. Each time you eat", True, (0, 0, 0))
-how_to_play_text3 = how_to_play_font.render("a fish, you gain 1 point and each 5 fish you eat you grow a tiny bit bigger.", True, (0, 0, 0))
-how_to_play_text4 = how_to_play_font.render("If you hit a squid, you will lose 20 health and have obscured vision for a few seconds.", True, (0, 0, 0))
+how_to_play_text2 = how_to_play_font.render("hit an obstacle, for example a plastic bag or bottle, you will lose 10 health and slow down a little.", True, (0, 0, 0))
+how_to_play_text3 = how_to_play_font.render("Each time you eat a fish, you gain 1 point and each 5 fish you eat you grow a tiny bit bigger.", True, (0, 0, 0))
+how_to_play_text4 = how_to_play_font.render("If you hit a squid, you will lose 15 health and have obscured vision for a short time and also slown down.", True, (0, 0, 0))
 how_to_play_text5 = how_to_play_font.render("Survive as long as you can!", True, (0, 0, 0))
 display_caps_font = pygame.font.SysFont("sansserif", 25, bold = True)
 version_text = display_caps_font.render("v. 4.92  mobile is not supported ", True, (0, 0, 0))
@@ -123,8 +124,13 @@ quit_label_text = labels_font.render("^ Quit ^", True, (0, 0, 0))
 #game labels
 game_labels_font = pygame.font.SysFont("sansserif", 25, bold = True)
 game_title_text = game_labels_font.render("Save the Turtles by Jayden Wu", True, (0, 0, 0))
-you_lost_font = pygame.font.SysFont("sansserif", 50, bold = True)
-you_lost_text = you_lost_font.render("You Lost! Press R to Restart, or press the exit button to go back to the menu.", True, (0, 0, 0))
+you_lost_font1 = pygame.font.SysFont("sansserif", 80, bold = True)
+you_lost_font2 = pygame.font.SysFont("sansserif", 25, bold = True)
+you_lost_text1 = you_lost_font1.render("You Lost!", True, (0, 0, 0))
+you_lost_text2 = you_lost_font2.render("Thousands of turtles have died due to plastic like you just did.", True, (0, 0, 0))
+you_lost_text3 = you_lost_font2.render("However, we can put a stop to this. Donating to fundraising campaigns", True, (0, 0, 0))
+you_lost_text4 = you_lost_font2.render("that want to stop ocean pollution, for example #TeamSeas, is a great way to help.", True, (0, 0, 0))
+you_lost_text5 = you_lost_font2.render("Press R to Restart, or press the exit button to go back to the menu.", True, (0, 0, 0))
 
 #lists
 enemylist = []
@@ -268,10 +274,25 @@ while running:
                     player.rect = player.image.get_rect()
             food.update(screen, foodlist)
         
+        #speed reduction
+        if difficulty == "Easy":
+            speed_change = 0.5
+            speed_change_time += 0.004
+        elif difficulty == "Medium":
+            speed_change = 1
+            speed_change_time += 0.002
+        elif difficulty == "Hard":
+            speed_change = 1.5
+            speed_change_time += 0.001
+
+        if speed_change_time > 1:
+            player.speed = 10
+
         #enemy collision
         for enemy in enemylist:
             if player.rect.colliderect(enemy.hitbox):
                 enemy.isvisible=False
+                player.speed -= speed_change
                 health-=10
             enemy.update(screen, enemylist)
 
@@ -279,6 +300,7 @@ while running:
         for squid in squidlist:
             if player.rect.colliderect(squid.hitbox):
                 squid.isvisible=False
+                player.speed -= speed_change * 1.25
                 blackout_show = True
                 health-=15
             squid.update(screen, squidlist)
@@ -310,7 +332,11 @@ while running:
 
     #if game is lost
     if health <= 0 and menu_show == False and about_show == False and how_to_play_show == False and settings_show == False:
-        screen.blit(you_lost_text,(200,300))
+        screen.blit(you_lost_text1,(200,300))
+        screen.blit(you_lost_text2,(200,400))
+        screen.blit(you_lost_text3,(200,425))
+        screen.blit(you_lost_text4,(200,450))
+        screen.blit(you_lost_text5,(200,475))
         game_start = False
         exit_button_hitbox = exit_button.get_rect()
         exit_button_hitbox.topleft = (1380,0)
@@ -321,15 +347,21 @@ while running:
                 game_start = True
                 health = 100
                 score = 0
+                player.x = 5
+                player.y = 450
         if keys[pygame.K_r]:
             game_start = True
             health = 100
             score = 0
+            player.x = 5
+            player.y = 450
 
     #if settings were clicked
     if settings_show:
 
         #blitting settings text
+        difficulty_text = settings_font.render("Difficulty: " + difficulty, True, (0, 0, 0))
+        subject_text = settings_font.render("Subject: " + subject, True, (0, 0, 0))
         screen.blit(difficulty_text, (560, 20))
         screen.blit(subject_text, (560, 350))
 

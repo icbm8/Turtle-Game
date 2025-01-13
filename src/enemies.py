@@ -73,11 +73,11 @@ class Squid():
     def createenemy(squidlist, screen):
         from main import difficulty
         if difficulty == "Easy":
-            spawndelay = 100
+            spawndelay = 120
         elif difficulty == "Medium":
-            spawndelay = 70
+            spawndelay = 90
         elif difficulty == "Hard":
-            spawndelay = 40
+            spawndelay = 60
         enemyspawn = random.randint(0,spawndelay)
         rol=0
         if enemyspawn == 1:
