@@ -11,8 +11,10 @@ class QuestionDialog:
         # Show the input dialog with the question
         user_input = simpledialog.askstring("Input", question)
 
+        print("User input is " + user_input)
+
         # Check if the user input matches the correct answer (case-sensitive check)
-        if user_input == correct_answer:
+        if user_input.strip().lower() == correct_answer.strip().lower():
             return True
         else:
             return False

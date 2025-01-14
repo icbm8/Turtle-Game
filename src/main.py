@@ -364,13 +364,17 @@ while running:
             dialog = QuestionDialog()
 
             # Call show_dialog to ask the question and check the answer
-            if dialog.show_dialog("question", "answer"):
+            if dialog.show_dialog(question, answer):
                 print("Correct!")
+                score += 3
+                health += 1
             else:
                 print("Incorrect!")
 
             # Close the tkinter window after the dialog is completed
             dialog.close()
+            show_question = False
+            game_start = True
 
     #if game is lost
     if health <= 0 and menu_show == False and about_show == False and how_to_play_show == False and settings_show == False:
