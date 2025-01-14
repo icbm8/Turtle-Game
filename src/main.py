@@ -9,22 +9,12 @@ from player import Player
 from food import Food
 from enemies import Enemy
 from enemies import Squid
-from image_loading import load_images
-from dialog import QuestionDialog
+from text_loading import *
+from image_loading import *
+from question import InputBox
 
 #starts time and adds facts
 start_time = time.time()
-facts_for_game = [
-    "At least 1,000 sea turtles die each year due to plastic. Thats more than 1 turtle every 9 hours!",
-    "By 2050, there will be more plastic than fish in the ocean!",
-    "More than 100,000 marine animals die each year due to plastic."
-    ]
-fact_on_menu = str(random.choice(facts_for_game))
-# Read the content of the math.txt file
-with open('./assets/math.txt', 'r') as file:
-    math_questions = file.readlines()
-    print(len(math_questions))
-marine_questions = ["filla tecst merone"]
 
 #initialization and screen defining
 pygame.init()
@@ -34,6 +24,7 @@ game_height = 975
 screen = pygame.display.set_mode((game_width, game_height))
 clock = pygame.time.Clock()
 player = Player(screen,450)
+input_box = InputBox(10, 400, 800, 40)
 
 #booleans
 running = True
@@ -45,10 +36,6 @@ how_to_play_show = False
 save_high_score_show = False
 quit = False
 
-#variables
-FPS = 60
-score = 0
-
 #high score saving
 def save_high_score(score, filename="high_score.json"):
     with open(filename, "w") as file:
@@ -59,7 +46,9 @@ def load_high_score(filename="high_score.json"):
         return data.get("high_score", 0)
 high_score = load_high_score()
 
-#other variables
+#variables
+FPS = 60
+score = 0
 health = 100
 score = 0
 difficulty = "Medium"
@@ -70,75 +59,6 @@ speed_change = 0
 speed_change_time = 0
 diff_question = 0
 show_question = False
-
-#image_loading
-images = load_images()
-fade_image = images["fade_image"]
-background_image = images["background_image"]
-play_button = images["play_button"]
-settings_button = images["settings_button"]
-about_button = images["about_button"]
-how_to_play_button = images["how_to_play_button"]
-quit_button = images["quit_button"]
-easy_button = images["easy_button"]
-medium_button = images["medium_button"]
-hard_button = images["hard_button"]
-math_button = images["math_button"]
-marine_button = images["marine_button"]
-save_high_score_button = images["save_high_score_button"]
-yes_button = images["yes_button"]
-no_button = images["no_button"]
-exit_button = images["exit_button"]
-blackout = images["blackout"]
-
-#font_loading
-main_title_font = pygame.font.SysFont("sansserif", 65, bold = True)
-main_title_text = main_title_font.render("Save The Turtles", True, (0, 0, 0))
-subtitle_font = pygame.font.SysFont("sansserif", 55)
-subtitle_text = subtitle_font.render("GASTC Project by Jayden Wu", True, (0, 0, 0))
-facts_title_font = pygame.font.SysFont("sansserif", 40, bold = True)
-facts_title_text = facts_title_font.render("Real Facts:", True, (0, 0, 0))
-facts_font = pygame.font.SysFont("sansserif", 25, bold = True)
-facts_text = facts_font.render(str(fact_on_menu), True, (0, 0, 0))
-settings_font = pygame.font.SysFont("sansserif", 50, bold = True)
-
-about_font = pygame.font.SysFont("sansserif", 40)
-about_text1 = about_font.render("Save The Turtles - a game by Jayden Wu. In this game, you will navigate a turtle through", True, (0, 0, 0))
-about_text2 = about_font.render("multiple plastic obstacles. If you hit plastic, you will lose some health.", True, (0, 0, 0))
-about_text3 = about_font.render("Every once in a while, the player is asked a question about a subject of their liking (e.g. math", True, (0, 0, 0))
-about_text4 = about_font.render(", marine life,) and if they get it wrong, they will lose points and if they get it right they won't", True, (0, 0, 0))
-about_text5 = about_font.render("lose any.", True, (0, 0, 0))
-about_text6 = about_font.render("This game is targeted to the younger age group (late elementary) to empower the earlier", True, (0, 0, 0))
-about_text7 = about_font.render("generation. The sooner people know, the better.", True, (0, 0, 0))
-how_to_play_font = pygame.font.SysFont("sansserif", 40, bold = True)
-how_to_play_text1 = how_to_play_font.render("Use WASD or arrow keys to navigate your turtle! You start with 100 health and each time you", True, (0, 0, 0))
-how_to_play_text2 = how_to_play_font.render("hit an obstacle, for example a plastic bag or bottle, you will lose 10 health and slow down a little.", True, (0, 0, 0))
-how_to_play_text3 = how_to_play_font.render("Each time you eat a fish, you gain 1 point and each 5 fish you eat you grow a tiny bit bigger.", True, (0, 0, 0))
-how_to_play_text4 = how_to_play_font.render("If you hit a squid, you will lose 15 health and have obscured vision for a short time and also slown down.", True, (0, 0, 0))
-how_to_play_text5 = how_to_play_font.render("Survive as long as you can!", True, (0, 0, 0))
-display_caps_font = pygame.font.SysFont("sansserif", 25, bold = True)
-version_text = display_caps_font.render("v. 4.92  mobile is not supported ", True, (0, 0, 0))
-question_font = pygame.font.SysFont("sansserif", 25, bold = True)
-question_text = question_font.render("question", True, (0,0,0))#math_questions[random.randint(0,len(math_questions))])
-
-#labels
-labels_font = pygame.font.SysFont("sansserif", 30)
-play_label_text = labels_font.render("^ Play ^", True, (0, 0, 0))
-settings_label_text = labels_font.render("^ Settings ^", True, (0, 0, 0))
-about_label_text = labels_font.render("^ About ^", True, (0, 0, 0))
-how_to_play_label_text = labels_font.render("^ How To Play ^", True, (0, 0, 0))
-quit_label_text = labels_font.render("^ Quit ^", True, (0, 0, 0))
-
-#game labels
-game_labels_font = pygame.font.SysFont("sansserif", 25, bold = True)
-game_title_text = game_labels_font.render("Save the Turtles by Jayden Wu", True, (0, 0, 0))
-you_lost_font1 = pygame.font.SysFont("sansserif", 80, bold = True)
-you_lost_font2 = pygame.font.SysFont("sansserif", 25, bold = True)
-you_lost_text1 = you_lost_font1.render("You Lost!", True, (0, 0, 0))
-you_lost_text2 = you_lost_font2.render("Thousands of turtles have died due to plastic like you just did.", True, (0, 0, 0))
-you_lost_text3 = you_lost_font2.render("However, we can put a stop to this. Donating to fundraising campaigns", True, (0, 0, 0))
-you_lost_text4 = you_lost_font2.render("that want to stop ocean pollution, for example #TeamSeas, is a great way to help.", True, (0, 0, 0))
-you_lost_text5 = you_lost_font2.render("Press R to Restart, or press the exit button to go back to the menu.", True, (0, 0, 0))
 
 #lists
 enemylist = []
@@ -162,6 +82,7 @@ while running:
             running = False
         if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
             running = False
+        input_box.handle_event(event)
     mouse_x,mouse_y = pygame.mouse.get_pos()       
     keys = pygame.key.get_pressed()
 
@@ -350,11 +271,9 @@ while running:
 
     #question show
     if show_question:
-        screen.blit(question_text, (300,300))
-        
-        
-        
-
+        screen.blit(question, (10,50))
+        game_start = False
+        input_box.draw(screen)
 
     #if game is lost
     if health <= 0 and menu_show == False and about_show == False and how_to_play_show == False and settings_show == False:
