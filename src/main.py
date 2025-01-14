@@ -367,7 +367,7 @@ while running:
             if dialog.show_dialog(question, answer):
                 print("Correct!")
                 score += 3
-                health += 1
+                health += 10
             else:
                 print("Incorrect!")
 
