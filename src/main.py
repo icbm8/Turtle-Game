@@ -350,35 +350,9 @@ while running:
 
     #question show
     if show_question:
-        #screen.blit(question_text, (300,300))
-        game_start = False
-        line = math_questions[random.randint(0,len(math_questions)-1)]
-        question = line.split('|')[0]
-        answer = line.split('|')[1]
-        print(question)
-        print(answer)
-
-        if "True" == "True":
-
-            # Create an instance of the QuestionDialog class
-            dialog = QuestionDialog(screen)
-            # Call show_dialog to ask the question and check the answer
-            result = dialog.show_dialog(question, answer)
-
-            
-            if result:
-                print("Correct!")
-                score += 3
-                print("score increased by 3")
-                health += 10
-                print("health increased by 10")
-            else:
-                print("Incorrect!")
-
-            # Close the tkinter window after the dialog is completed
-            #dialog.close()
-            show_question = False
-            game_start = True
+        screen.blit(question_text, (300,300))
+        
+        
         
 
 
