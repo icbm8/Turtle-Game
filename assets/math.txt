@@ -1,0 +1,20 @@
+aIf there are 12 dolphins swimming in the ocean, and 9 more join them, how many dolphins are there now?|21 dolphins
+A fisherman catches 25 fish in the morning and 14 in the afternoon. How many fish did he catch in total?|39 fish
+If there are 8 turtles on a beach and each turtle lays 5 eggs, how many eggs are laid in total?|40 eggs
+A group of 36 starfish is divided equally into 6 groups. How many starfish are in each group?|6 starfish per group
+The coral reef has 1,247 colorful fish. What is the value of the digit 2 in the number 1,247?|200
+A seashell costs $3, and you have $15. How many seashells can you buy?|5 seashells
+You see 8 whales swimming in the ocean. 3 of them dive deep. What fraction of the whales dived deep?|3/8
+If a boat takes 45 minutes to reach the island and it leaves at 2:30 PM, what time will it arrive?|3:15 PM
+A group of fish is swimming in a repeating pattern: 3 yellow fish, 2 blue fish, 1 red fish. How many fish will be in the pattern after 5 full cycles?|30 fish
+The beach is shaped like a rectangle with a length of 10 meters and a width of 4 meters. What is the area of the beach?|40 square meters
+A square pond on the beach has a side length of 6 meters. What is the perimeter of the pond?|24 meters
+A seahorse swims at a speed of 2 miles per hour. How far will it swim in 3 hours?|6 miles
+A fishing boat catches 125 fish each day. How many fish will it catch in 7 days?|875 fish
+There are 120 crabs on the beach. If each group of crabs contains 8 crabs, how many groups of crabs are there?|15 groups
+A giant clam weighs 15 kilograms. How much would 4 giant clams weigh together?|60 kilograms
+A school of 256 fish swims past a boat, and 378 more fish follow them. How many fish are there in total?|634 fish
+You have $25 to spend at an aquarium. You buy 2 tickets at $6 each and a stuffed animal for $7. How much money do you have left?|$6 left
+A beach has 12 seashells. 4 of them are pink, 3 are blue, and the rest are white. What fraction of the seashells are white?|5/12
+An octopus has 8 arms. How many arms do 12 octopuses have in total?|96 arms
+The ocean has a depth of 3,500 meters in one area and 4,200 meters in another area. Which area is deeper, and by how many meters?|The second area is deeper by 700 meters

@@ -10,6 +10,7 @@ from food import Food
 from enemies import Enemy
 from enemies import Squid
 from image_loading import load_images
+from dialog import QuestionDialog
 
 #starts time and adds facts
 start_time = time.time()
@@ -19,7 +20,10 @@ facts_for_game = [
     "More than 100,000 marine animals die each year due to plastic."
     ]
 fact_on_menu = str(random.choice(facts_for_game))
-math_questions = ["filla tecst meth"]
+# Read the content of the math.txt file
+with open('./assets/math.txt', 'r') as file:
+    math_questions = file.readlines()
+    print(len(math_questions))
 marine_questions = ["filla tecst merone"]
 
 #initialization and screen defining
@@ -64,6 +68,8 @@ blackout_show = False
 blackout_var = 255
 speed_change = 0
 speed_change_time = 0
+diff_question = 0
+show_question = False
 
 #image_loading
 images = load_images()
@@ -112,6 +118,8 @@ how_to_play_text4 = how_to_play_font.render("If you hit a squid, you will lose 1
 how_to_play_text5 = how_to_play_font.render("Survive as long as you can!", True, (0, 0, 0))
 display_caps_font = pygame.font.SysFont("sansserif", 25, bold = True)
 version_text = display_caps_font.render("v. 4.92  mobile is not supported ", True, (0, 0, 0))
+question_font = pygame.font.SysFont("sansserif", 25, bold = True)
+question_text = question_font.render("question", True, (0,0,0))#math_questions[random.randint(0,len(math_questions))])
 
 #labels
 labels_font = pygame.font.SysFont("sansserif", 30)
@@ -272,6 +280,8 @@ while running:
                     player.image = pygame.image.load("./assets/playerturtle.png")
                     player.image = pygame.transform.smoothscale(player.image,(int(player.size*0.15),int(player.size*0.125)))
                     player.rect = player.image.get_rect()
+                if score % diff_question == 0:
+                    show_question = True
             food.update(screen, foodlist)
         
         #speed reduction
@@ -307,6 +317,14 @@ while running:
 
         #other
 
+        #difficulty for the question
+        if difficulty == "Easy":
+            diff_question = 15
+        if difficulty == "Medium":
+            diff_question = 10
+        if difficulty == "Hard":
+            diff_question = 5
+
         #blackout
         if blackout_show:
             if difficulty == "Easy":
@@ -329,6 +347,30 @@ while running:
         Squid.createenemy(squidlist, screen)
         if score > high_score:
             high_score = score
+
+    #question show
+    if show_question:
+        #screen.blit(question_text, (300,300))
+        game_start = False
+        line = math_questions[random.randint(0,len(math_questions)-1)]
+        question = line.split('|')[0]
+        answer = line.split('|')[1]
+        print(question)
+        print(answer)
+
+        if "True" == "True":
+
+            # Create an instance of the QuestionDialog class
+            dialog = QuestionDialog()
+
+            # Call show_dialog to ask the question and check the answer
+            if dialog.show_dialog("question", "answer"):
+                print("Correct!")
+            else:
+                print("Incorrect!")
+
+            # Close the tkinter window after the dialog is completed
+            dialog.close()
 
     #if game is lost
     if health <= 0 and menu_show == False and about_show == False and how_to_play_show == False and settings_show == False:
