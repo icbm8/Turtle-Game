@@ -1,13 +1,12 @@
 import pygame
 from text_loading import *
+from text_loading import question_generator
 
 pygame.init()
 
 WIDTH, HEIGHT = 800, 600
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Input Box Example")
-
-
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 GRAY = (200, 200, 200)
@@ -27,7 +26,7 @@ class InputBox:
 
             self.active = True
             while self.active:
-                print("input box is active")
+                #print("input box is active")
                 
                 
                 pygame.draw.rect(screen, self.color, self.rect, 2)
@@ -35,7 +34,7 @@ class InputBox:
                 screen.blit(self.txt_surface, (self.rect.x + 5, self.rect.y + 5))
 
                 submit_text = FONT.render("Press Enter to Submit", True, BLACK)
-                screen.blit(submit_text, (50, 250))
+                screen.blit(submit_text, (5, 250))
 
                 pygame.display.flip()
 
@@ -44,6 +43,7 @@ class InputBox:
 
                     if event.type == pygame.KEYDOWN:
                         if event.key == pygame.K_RETURN:
+
                             if self.text == str(question_answer):
                                 print(self.text)
                                 print("correct")

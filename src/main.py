@@ -13,6 +13,7 @@ from text_loading import *
 from image_loading import *
 from question import InputBox
 
+
 #starts time and adds facts
 start_time = time.time()
 
@@ -271,9 +272,12 @@ while running:
 
     #question show
     if show_question:
-        screen.blit(question, (10,50))
+        question_generator()
+        print(question_text)
+        print(question_answer)
+        screen.blit(question, (5,130))
         game_start = False
-        input_box = InputBox(10, 400, 800, 40)
+        input_box = InputBox(5, 160, 800, 40)
         result_is_correct = input_box.draw(screen)
         if result_is_correct:
             print("Answer is correct")

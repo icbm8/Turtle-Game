@@ -19,10 +19,18 @@ math_questions = ["If there are 12 dolphins swimming in the ocean, and 9 more jo
                   "A school of 256 fish swims past a boat, and 378 more fish follow them. How many fish are there in total?", "You have $25 to spend at an aquarium. You buy 2 tickets at $6 each and a stuffed animal for $7. How much money do you have left?",
                   "A beach has 12 seashells. 4 of them are pink, 3 are blue, and the rest are white. What fraction of the seashells are white?", "An octopus has 8 arms. How many arms do 12 octopuses have in total?",
                   "The ocean has a depth of 3,500 meters in one area and 4,200 meters in another area. Which area is deeper, and by how many meters?"]
-question_random = random.randint(0,len(math_questions))
-question_text = str(math_questions[question_random])
 math_answers = ["21","39","40","6","200","5","3/8","3:15 PM","30","40","24","6","875","15","60","634","$6","5/12","96","700"]
-question_answer = math_answers[question_random]
+question_text = ""
+question_answer = ""
+question_font = pygame.font.SysFont("sansserif", 30, bold = True)
+question = question_font.render(str(question_text), True, (0,0,0))
+def question_generator():
+    question_random = random.randint(0,len(math_questions))
+    question_text = str(math_questions[question_random])
+    question_answer = math_answers[question_random]
+
+
+
 
 main_title_font = pygame.font.SysFont("sansserif", 65, bold = True)
 main_title_text = main_title_font.render("Save The Turtles", True, (0, 0, 0))
@@ -49,8 +57,7 @@ how_to_play_text4 = how_to_play_font.render("If you hit a squid, you will lose 1
 how_to_play_text5 = how_to_play_font.render("Survive as long as you can!", True, (0, 0, 0))
 display_caps_font = pygame.font.SysFont("sansserif", 25, bold = True)
 version_text = display_caps_font.render("v. 4.92  mobile is not supported ", True, (0, 0, 0))
-question_font = pygame.font.SysFont("sansserif", 40, bold = True)
-question = question_font.render(str(question_text), True, (0,0,0))#math_questions[random.randint(0,len(math_questions))])
+
 #labels
 labels_font = pygame.font.SysFont("sansserif", 30)
 play_label_text = labels_font.render("^ Play ^", True, (0, 0, 0))
