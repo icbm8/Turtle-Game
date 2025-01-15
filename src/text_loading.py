@@ -8,6 +8,7 @@ facts_for_game = [
     "More than 100,000 marine animals die each year due to plastic."
     ]
 fact_on_menu = str(random.choice(facts_for_game))
+
 math_questions = ["If there are 12 dolphins swimming in the ocean, and 9 more join them, how many dolphins are there now?", "A fisherman catches 25 fish in the morning and 14 in the afternoon. How many fish did he catch in total?",
                   "If there are 8 turtles on a beach and each turtle lays 5 eggs, how many eggs are laid in total?", "A group of 36 starfish is divided equally into 6 groups. How many starfish are in each group?",
                   "The coral reef has 1,247 colorful fish. What is the value of the digit 2 in the number 1,247?", "A seashell costs $3, and you have $15. How many seashells can you buy?",
@@ -20,16 +21,6 @@ math_questions = ["If there are 12 dolphins swimming in the ocean, and 9 more jo
                   "A beach has 12 seashells. 4 of them are pink, 3 are blue, and the rest are white. What fraction of the seashells are white?", "An octopus has 8 arms. How many arms do 12 octopuses have in total?",
                   "The ocean has a depth of 3,500 meters in one area and 4,200 meters in another area. Which area is deeper, and by how many meters?"]
 math_answers = ["21","39","40","6","200","5","3/8","3:15 PM","30","40","24","6","875","15","60","634","$6","5/12","96","700"]
-question_text = ""
-question_answer = ""
-question_font = pygame.font.SysFont("sansserif", 30, bold = True)
-question = question_font.render(str(question_text), True, (0,0,0))
-def question_generator():
-    question_random = random.randint(0,len(math_questions))
-    question_text = str(math_questions[question_random])
-    question_answer = math_answers[question_random]
-
-
 
 
 main_title_font = pygame.font.SysFont("sansserif", 65, bold = True)

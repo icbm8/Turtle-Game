@@ -1,6 +1,5 @@
 import pygame
 from text_loading import *
-from text_loading import question_generator
 
 pygame.init()
 
@@ -21,14 +20,11 @@ class InputBox:
             self.txt_surface = FONT.render(text, True, BLACK)
             self.active = False
 
-        def draw(self, screen):
+        def draw(self, screen, answer):
             
-
             self.active = True
             while self.active:
-                #print("input box is active")
-                
-                
+                #print("input box is active")          
                 pygame.draw.rect(screen, self.color, self.rect, 2)
                 self.txt_surface = FONT.render(self.text, True, BLACK)
                 screen.blit(self.txt_surface, (self.rect.x + 5, self.rect.y + 5))
@@ -38,13 +34,12 @@ class InputBox:
 
                 pygame.display.flip()
 
-
                 for event in pygame.event.get():
 
                     if event.type == pygame.KEYDOWN:
                         if event.key == pygame.K_RETURN:
 
-                            if self.text == str(question_answer):
+                            if self.text == str(answer):
                                 print(self.text)
                                 print("correct")
                                 self.text = ''
@@ -59,5 +54,7 @@ class InputBox:
                             self.text = self.text[:-1]
                         else:
                             self.text += event.unicode
+                
+            
                         
 

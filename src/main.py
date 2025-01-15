@@ -272,13 +272,19 @@ while running:
 
     #question show
     if show_question:
-        question_generator()
-        print(question_text)
-        print(question_answer)
+        
+        input_box = InputBox(5, 160, 800, 40)
+                
+        question_random = random.randint(0,len(math_questions)-1)
+        question_text = str(math_questions[question_random])
+        question_answer = math_answers[question_random]
+        question_font = pygame.font.SysFont("sansserif", 30, bold = True)
+        question = question_font.render(str(question_text), True, (0,0,0))
+
         screen.blit(question, (5,130))
         game_start = False
-        input_box = InputBox(5, 160, 800, 40)
-        result_is_correct = input_box.draw(screen)
+
+        result_is_correct = input_box.draw(screen, question_answer)
         if result_is_correct:
             print("Answer is correct")
             score += 3
