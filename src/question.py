@@ -22,29 +22,42 @@ class InputBox:
             self.txt_surface = FONT.render(text, True, BLACK)
             self.active = False
 
-        def handle_event(self, event):
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                self.active = self.rect.collidepoint(event.pos)
-                self.color = BLUE if self.active else GRAY
-            if event.type == pygame.KEYDOWN and self.active:
-                if event.key == pygame.K_RETURN:
-                    if self.text == str(question_answer):
-                        print(self.text)
-                        print("correct")
-                        self.text = ''
-                        self.active = False
-                        return True
-                    else:
-                        print("incorrect")
-                        self.active = False
-                        return False
-                    self.text = ''
-                elif event.key == pygame.K_BACKSPACE:
-                    self.text = self.text[:-1]
-                else:
-                    self.text += event.unicode
-                self.txt_surface = FONT.render(self.text, True, BLACK)
-
         def draw(self, screen):
-            screen.blit(self.txt_surface, (self.rect.x + 5, self.rect.y + 5))
-            pygame.draw.rect(screen, self.color, self.rect, 2)
+            
+
+            self.active = True
+            while self.active:
+                print("input box is active")
+                
+                
+                pygame.draw.rect(screen, self.color, self.rect, 2)
+                self.txt_surface = FONT.render(self.text, True, BLACK)
+                screen.blit(self.txt_surface, (self.rect.x + 5, self.rect.y + 5))
+
+                submit_text = FONT.render("Press Enter to Submit", True, BLACK)
+                screen.blit(submit_text, (50, 250))
+
+                pygame.display.flip()
+
+
+                for event in pygame.event.get():
+
+                    if event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_RETURN:
+                            if self.text == str(question_answer):
+                                print(self.text)
+                                print("correct")
+                                self.text = ''
+                                self.active = False
+                                return True
+                            else:
+                                print("incorrect")
+                                self.active = False
+                                return False
+                            self.text = ''
+                        elif event.key == pygame.K_BACKSPACE:
+                            self.text = self.text[:-1]
+                        else:
+                            self.text += event.unicode
+                        
+

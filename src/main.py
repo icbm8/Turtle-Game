@@ -24,7 +24,7 @@ game_height = 975
 screen = pygame.display.set_mode((game_width, game_height))
 clock = pygame.time.Clock()
 player = Player(screen,450)
-input_box = InputBox(10, 400, 800, 40)
+#input_box = InputBox(10, 400, 800, 40)
 
 #booleans
 running = True
@@ -82,7 +82,7 @@ while running:
             running = False
         if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
             running = False
-        input_box.handle_event(event)
+        #input_box.handle_event(event)
     mouse_x,mouse_y = pygame.mouse.get_pos()       
     keys = pygame.key.get_pressed()
 
@@ -273,7 +273,16 @@ while running:
     if show_question:
         screen.blit(question, (10,50))
         game_start = False
-        input_box.draw(screen)
+        input_box = InputBox(10, 400, 800, 40)
+        result_is_correct = input_box.draw(screen)
+        if result_is_correct:
+            print("Answer is correct")
+            score += 3
+            health += 10
+        else:
+            print("Answer is incorrect")
+        show_question = False
+        game_start = True
 
     #if game is lost
     if health <= 0 and menu_show == False and about_show == False and how_to_play_show == False and settings_show == False:
