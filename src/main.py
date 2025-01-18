@@ -73,7 +73,7 @@ running_pause = 0
 
 #music loading and playing
 pygame.mixer.music.load("./assets/menu_music.mp3")
-pygame.mixer.music.set_volume(0)
+pygame.mixer.music.set_volume(0.1)
 pygame.mixer.music.play(loops=-1)
 
 #while loop land below
@@ -278,13 +278,10 @@ while running:
         question_random = random.randint(0,len(math_questions)-1)
         question_text = str(math_questions[question_random])
         question_answer = math_answers[question_random]
-        question_font = pygame.font.SysFont("sansserif", 30, bold = True)
-        question = question_font.render(str(question_text), True, (0,0,0))
-
-        screen.blit(question, (5,130))
+        
         game_start = False
 
-        result_is_correct = input_box.draw(screen, question_answer)
+        result_is_correct = input_box.draw(screen, question_text, question_answer)
         if result_is_correct:
             print("Answer is correct")
             score += 3
