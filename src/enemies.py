@@ -2,7 +2,7 @@ import pygame
 import random
 
 class Enemy():
-    def __init__(self,x, y,rol, speed, size, screen):
+    def __init__(self,x, y,rol, speed, size, screen, enemytype):
         self.x = x
         self.y = y
         self.rol=rol
@@ -10,22 +10,32 @@ class Enemy():
         self.isvisible=True
         self.speed = speed
         self.size = size
-        images = ["./assets/plasticbag.png","./assets/plasticbottle.png"]
-        self.image = pygame.image.load(images[random.randint(0,1)])
+        self.enemytype = enemytype
+        if enemytype == "plastic":
+            images = ["./assets/plasticbag.png","./assets/plasticbottle.png"]
+            self.image = pygame.image.load(images[random.randint(0,1)])
+        if enemytype == "squid":
+            self.image = pygame.image.load("./assets/squid.png")
         self.image = pygame.transform.smoothscale(self.image,(self.size,self.size))
         self.hitbox = self.image.get_rect()
         self.hitbox.topleft = (self.x,self.y)
-        self.animation_timer_max = 16
-        self.swimming_timer = self.animation_timer_max
-        self.swimming_frame = 0
-    def createenemy(enemylist, screen):
+    def createenemy(enemylist, screen, enemytype):
         from main import difficulty
         if difficulty == "Easy":
-            spawndelay = 80
+            if enemytype == "plastic":
+                spawndelay = 80
+            elif enemytype == "squid":
+                spawndelay = 120
         elif difficulty == "Medium":
-            spawndelay = 50
+            if enemytype == "plastic":
+                spawndelay = 50
+            elif enemytype == "squid":
+                spawndelay = 90
         elif difficulty == "Hard":
-            spawndelay = 20
+            if enemytype == "plastic":
+                spawndelay = 20
+            elif enemytype == "squid":
+                spawndelay = 60
         enemyspawn = random.randint(0,spawndelay)
         rol=0
         if enemyspawn == 1:
@@ -43,7 +53,7 @@ class Enemy():
             elif spawnypos>487.5:
                 rol=1
                 lor=rol
-            enemy = Enemy(enemynewx,spawnypos,rol,5,100, screen)
+            enemy = Enemy(enemynewx,spawnypos,rol,5,100, screen, enemytype)
             enemylist.append(enemy)
     def update(self, screen, enemylist):
         if self.isvisible:
@@ -57,55 +67,3 @@ class Enemy():
                 self.hitbox.x -= self.speed
         else:
             enemylist.remove(self)
-class Squid():
-    def __init__(self,x, y,rol, speed, size, screen):
-        self.x = x
-        self.y = y
-        self.rol=rol
-        self.screen = screen
-        self.isvisible = True
-        self.speed = speed
-        self.size = size
-        self.image = pygame.image.load("./assets/squid.png")
-        self.image = pygame.transform.smoothscale(self.image,(self.size,self.size))
-        self.hitbox = self.image.get_rect()
-        self.hitbox.topleft = (self.x,self.y)
-    def createenemy(squidlist, screen):
-        from main import difficulty
-        if difficulty == "Easy":
-            spawndelay = 120
-        elif difficulty == "Medium":
-            spawndelay = 90
-        elif difficulty == "Hard":
-            spawndelay = 60
-        enemyspawn = random.randint(0,spawndelay)
-        rol=0
-        if enemyspawn == 1:
-            lor = random.randint(0,1)
-            if lor == 0:
-                enemynewx=-100
-                rol=lor
-            elif lor == 1:
-                enemynewx=1600
-                rol=lor
-            spawnypos=random.randint(0,975)
-            if spawnypos <487.5:
-                rol=0
-                lor = rol
-            elif spawnypos>487.5:
-                rol=1
-                lor=rol
-            squid = Squid(enemynewx,spawnypos,rol,5,100, screen)
-            squidlist.append(squid)
-    def update(self, screen, squidlist):
-        if self.isvisible:
-            screen.blit(self.image,(self.x, self.y))
-            self.hitbox.topleft = (self.x,self.y)
-            if self.rol==0:
-                self.x+=self.speed
-                self.hitbox.x += self.speed
-            elif self.rol==1:
-                self.x-=self.speed
-                self.hitbox.x -= self.speed
-        else:
-            squidlist.remove(self)

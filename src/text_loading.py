@@ -47,7 +47,7 @@ how_to_play_text3 = how_to_play_font.render("little. Each time you eat a fish, y
 how_to_play_text4 = how_to_play_font.render("If you hit a squid, you will lose 15 health and have obscured vision for a short time and also slown down.", True, (0, 0, 0))
 how_to_play_text5 = how_to_play_font.render("Survive as long as you can!", True, (0, 0, 0))
 display_caps_font = pygame.font.SysFont("sansserif", 25, bold = True)
-version_text = display_caps_font.render("v. 4.92  mobile is not supported ", True, (0, 0, 0))
+version_text = display_caps_font.render("v. 5.81  mobile is not supported ", True, (0, 0, 0))
 
 #labels
 labels_font = pygame.font.SysFont("sansserif", 30)

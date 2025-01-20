@@ -8,11 +8,9 @@ import pygame.transform
 from player import Player
 from food import Food
 from enemies import Enemy
-from enemies import Squid
 from text_loading import *
 from image_loading import *
 from question import InputBox
-
 
 #starts time and adds facts
 start_time = time.time()
@@ -25,7 +23,6 @@ game_height = 975
 screen = pygame.display.set_mode((game_width, game_height))
 clock = pygame.time.Clock()
 player = Player(screen,450)
-#input_box = InputBox(10, 400, 800, 40)
 
 #booleans
 running = True
@@ -64,7 +61,6 @@ show_question = False
 #lists
 enemylist = []
 foodlist = []
-squidlist = []
 
 #other variables
 enemy_timer_max = 25
@@ -83,7 +79,6 @@ while running:
             running = False
         if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
             running = False
-        #input_box.handle_event(event)
     mouse_x,mouse_y = pygame.mouse.get_pos()       
     keys = pygame.key.get_pressed()
 
@@ -216,7 +211,6 @@ while running:
         elif difficulty == "Hard":
             speed_change = 1.5
             speed_change_time += 0.001
-
         if speed_change_time > 1:
             player.speed = 10
 
@@ -224,18 +218,14 @@ while running:
         for enemy in enemylist:
             if player.rect.colliderect(enemy.hitbox):
                 enemy.isvisible=False
-                player.speed -= speed_change
-                health-=10
+                if enemy.enemytype == "plastic":
+                    player.speed -= speed_change
+                    health-=10
+                elif enemy.enemytype == "squid":
+                    player.speed -= speed_change * 1.25
+                    blackout_show = True
+                    health-=15
             enemy.update(screen, enemylist)
-
-        #squid collision
-        for squid in squidlist:
-            if player.rect.colliderect(squid.hitbox):
-                squid.isvisible=False
-                player.speed -= speed_change * 1.25
-                blackout_show = True
-                health-=15
-            squid.update(screen, squidlist)
 
         #other
 
@@ -264,21 +254,18 @@ while running:
             blackout_var = 255
 
         player.update()
-        Enemy.createenemy(enemylist, screen)
+        Enemy.createenemy(enemylist, screen, "plastic")
+        Enemy.createenemy(enemylist, screen, "squid")
         Food.createfood(foodlist, screen)
-        Squid.createenemy(squidlist, screen)
         if score > high_score:
             high_score = score
 
     #question show
     if show_question:
-        
         input_box = InputBox(5, 160, 800, 40)
-                
         question_random = random.randint(0,len(math_questions)-1)
         question_text = str(math_questions[question_random])
         question_answer = math_answers[question_random]
-        
         game_start = False
 
         result_is_correct = input_box.draw(screen, question_text, question_answer)
