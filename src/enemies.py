@@ -1,7 +1,10 @@
 import pygame
 import random
 
+#enemy class
 class Enemy():
+
+    #initialization
     def __init__(self,x, y,rol, speed, size, screen, enemytype):
         self.x = x
         self.y = y
@@ -19,6 +22,8 @@ class Enemy():
         self.image = pygame.transform.smoothscale(self.image,(self.size,self.size))
         self.hitbox = self.image.get_rect()
         self.hitbox.topleft = (self.x,self.y)
+
+    #creating the enemy
     def createenemy(enemylist, screen, enemytype):
         from main import difficulty
         if difficulty == "Easy":
@@ -55,6 +60,8 @@ class Enemy():
                 lor=rol
             enemy = Enemy(enemynewx,spawnypos,rol,5,100, screen, enemytype)
             enemylist.append(enemy)
+
+    #updating the enemy
     def update(self, screen, enemylist):
         if self.isvisible:
             screen.blit(self.image,(self.x, self.y))

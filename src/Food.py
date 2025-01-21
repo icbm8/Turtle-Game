@@ -1,6 +1,7 @@
 import pygame
 import random
 
+#food class
 class Food():
     def __init__(self,x, y,rol, speed, size, screen):
         self.x = x
@@ -21,6 +22,7 @@ class Food():
         self.swimming_frame = 0
         self.isvisible=True
 
+    #creating the food
     def createfood(foodlist,screen):
         from main import difficulty
         if difficulty == "Easy":
@@ -45,6 +47,8 @@ class Food():
                 frol=1
             food = Food(foodnewx,foodypos,frol,5,100,screen)
             foodlist.append(food)
+    
+    #upating the food
     def update(self, screen, foodlist):
         if self.isvisible:
             screen.blit(self.image,(self.x, self.y))

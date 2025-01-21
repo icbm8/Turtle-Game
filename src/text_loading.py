@@ -8,7 +8,8 @@ facts_for_game = [
     "More than 100,000 marine animals die each year due to plastic."
     ]
 fact_on_menu = str(random.choice(facts_for_game))
-
+question_font = pygame.font.SysFont("sansserif", 36)
+submit_text = question_font.render("Press Enter to Submit", True, (0,0,0))
 math_questions = ["If there are 12 dolphins swimming in the ocean, and 9 more join them, how many dolphins are there now?", "A fisherman catches 25 fish in the morning and 14 in the afternoon. How many fish did he catch in total?",
                   "If there are 8 turtles on a beach and each turtle lays 5 eggs, how many eggs are laid in total?", "A group of 36 starfish is divided equally into 6 groups. How many starfish are in each group?",
                   "The coral reef has 1,247 colorful fish. What is the value of the digit 2 in the number 1,247?", "A seashell costs $3, and you have $15. How many seashells can you buy?",

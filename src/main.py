@@ -89,8 +89,11 @@ while running:
         player.Move(0,1)
     if keys[pygame.K_a] or keys[pygame.K_LEFT]:
         player.Move(-1,0)
+        player.image = pygame.transform.flip(player.image, True, False)
     if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
         player.Move(1,0)
+        player.image = pygame.transform.flip(player.image, True, False)
+        
 
     #other
     elapsed_time = time.time() - start_time
@@ -192,11 +195,7 @@ while running:
             if player.rect.colliderect(food.hitbox):
                 food.isvisible=False
                 score+=1
-                if score % 5 == 0:
-                    player.size += 50
-                    player.image = pygame.image.load("./assets/playerturtle.png")
-                    player.image = pygame.transform.smoothscale(player.image,(int(player.size*0.15),int(player.size*0.125)))
-                    player.rect = player.image.get_rect()
+                player.grow()
                 if score % diff_question == 0:
                     show_question = True
             food.update(screen, foodlist)
@@ -289,6 +288,8 @@ while running:
         exit_button_hitbox = exit_button.get_rect()
         exit_button_hitbox.topleft = (1380,0)
         screen.blit(exit_button,(1380,0))
+
+        #
         if event.type == pygame.MOUSEBUTTONDOWN:
             if exit_button_hitbox.collidepoint(event.pos):
                 menu_show = True
