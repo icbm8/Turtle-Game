@@ -6,6 +6,7 @@ import math
 import json
 import pygame.transform
 from player import Player
+from player import *
 from food import Food
 from enemies import Enemy
 from text_loading import *
@@ -89,10 +90,10 @@ while running:
         player.Move(0,1)
     if keys[pygame.K_a] or keys[pygame.K_LEFT]:
         player.Move(-1,0)
-        player.image = pygame.transform.flip(player.image, True, False)
+        player.image = player.player_flipped
     if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
         player.Move(1,0)
-        player.image = pygame.transform.flip(player.image, True, False)
+        player.image = player.player_image
         
 
     #other
@@ -195,7 +196,8 @@ while running:
             if player.rect.colliderect(food.hitbox):
                 food.isvisible=False
                 score+=1
-                player.grow()
+                if score % 5 == 0:
+                    player.grow()
                 if score % diff_question == 0:
                     show_question = True
             food.update(screen, foodlist)

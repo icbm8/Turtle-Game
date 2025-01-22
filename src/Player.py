@@ -1,4 +1,6 @@
 import pygame
+from image_loading import player_loadimage
+from image_loading import player_loadflipped
 #player class
 
 class Player(pygame.sprite.Sprite):
@@ -10,8 +12,9 @@ class Player(pygame.sprite.Sprite):
         self.angle = 25
         self.screen = screen
         self.size = size
-        self.image = pygame.image.load("./assets/playerturtle.png")
-        self.image = pygame.transform.scale(self.image,(int(self.size*0.15),int(self.size*0.125)))
+        self.player_image = pygame.transform.scale(player_loadimage,(int(self.size*0.15),int(self.size*0.125)))
+        self.player_flipped = pygame.transform.scale(player_loadflipped,(int(self.size*0.15),int(self.size*0.125)))
+        self.image = self.player_image
         self.rect = self.image.get_rect()
         self.rect.topleft = (self.x,self.y)
         self.speed = 10
@@ -21,11 +24,10 @@ class Player(pygame.sprite.Sprite):
     def grow(self):
         from main import score
         from main import player
-        if score % 5 == 0:
-            player.size += 50
-            player.image = pygame.image.load("./assets/playerturtle.png")
-            player.image = pygame.transform.smoothscale(player.image,(int(player.size*0.15),int(player.size*0.125)))
-            player.rect = player.image.get_rect()
+        player.size += 50
+        player.image = pygame.image.load("./assets/playerturtle.png")
+        player.image = pygame.transform.smoothscale(player.image,(int(player.size*0.15),int(player.size*0.125)))
+        player.rect = player.image.get_rect()
 
     #player movement
     def Move(self,x_movement,y_movement):

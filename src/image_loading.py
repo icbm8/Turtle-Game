@@ -4,6 +4,9 @@ pygame.display.set_mode()
 
 #images
 fade_image = pygame.image.load("./assets/fade.png").convert_alpha()
+player_loadimage = pygame.image.load("./assets/playerturtle.png")
+player_loadflipped = pygame.transform.flip(player_loadimage, True, False)
+
 
 #background
 background_image = pygame.image.load("./assets/background.jpg").convert_alpha()
