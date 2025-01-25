@@ -4,6 +4,7 @@ import random
 import time
 import math
 import json
+import sys
 import pygame.transform
 from player import Player
 from player import *
@@ -85,14 +86,14 @@ while running:
 
     #keys
     if keys[pygame.K_w] or keys[pygame.K_UP]:
-        player.Move(0,-1)
+        player.move(0,-1)
     if keys[pygame.K_s] or keys[pygame.K_DOWN]:
-        player.Move(0,1)
+        player.move(0,1)
     if keys[pygame.K_a] or keys[pygame.K_LEFT]:
-        player.Move(-1,0)
+        player.move(-1,0)
         player.image = player.player_flipped
     if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
-        player.Move(1,0)
+        player.move(1,0)
         player.image = player.player_image
         
 
@@ -148,7 +149,6 @@ while running:
         screen.blit(facts_text, (380, 605.5))
 
         #hitbox collisions
-        from main import event
         if event.type == pygame.MOUSEBUTTONDOWN:
             if play_button_hitbox and play_button_hitbox.collidepoint(event.pos):
                 game_start = True
@@ -271,11 +271,8 @@ while running:
 
         result_is_correct = input_box.draw(screen, question_text, question_answer)
         if result_is_correct:
-            print("Answer is correct")
             score += 3
             health += 10
-        else:
-            print("Answer is incorrect")
         show_question = False
         game_start = True
 
@@ -425,8 +422,10 @@ while running:
             if yes_button_hitbox.collidepoint(event.pos):
                 save_high_score(high_score)
                 pygame.quit()
+                sys.exit()
             if no_button_hitbox.collidepoint(event.pos):
                 pygame.quit()
+                sys.exit()
 
     #final captions and text including FPS and caption
     clock.tick(FPS)

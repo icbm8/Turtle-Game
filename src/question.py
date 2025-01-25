@@ -56,22 +56,15 @@ class InputBox:
                         if event.key == pygame.K_RETURN:
 
                             if self.text == str(answer):
-                                print(self.text)
-                                print("correct")
                                 self.text = ''
                                 self.active = False
                                 return True
                             else:
-                                print("incorrect")
                                 self.active = False
                                 return False
-                            self.text = ''
                         elif event.key == pygame.K_BACKSPACE:
-                            print("work")
                             self.text = self.text[:-1]
                         elif event.key == pygame.K_DELETE:
-                            print("workaodu")
-
                             self.text = self.text[:-1]
                         else:
                             self.text += event.unicode

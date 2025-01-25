@@ -24,16 +24,14 @@ class Player(pygame.sprite.Sprite):
 
     #player growing
     def grow(self):
-        from main import score
-        from main import player
-        player.size += 50
+        self.size += 50
         self.flip(self.screen,self.size)
-        player.image = pygame.image.load("./assets/playerturtle.png")
-        player.image = pygame.transform.smoothscale(player.image,(int(player.size*0.15),int(player.size*0.125)))
-        player.rect = player.image.get_rect()
+        self.image = pygame.image.load("./assets/playerturtle.png")
+        self.image = pygame.transform.smoothscale(self.image,(int(self.size*0.15),int(self.size*0.125)))
+        self.rect = self.image.get_rect()
 
     #player movement
-    def Move(self,x_movement,y_movement):
+    def move(self,x_movement,y_movement):
         if self.alive:
             self.x += self.speed * x_movement
             self.rect.x += self.speed * x_movement
