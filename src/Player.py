@@ -18,6 +18,7 @@ class Player(pygame.sprite.Sprite):
         self.speed = 10
         self.alive = True
 
+    #flip the image when left key is pressed and also when right key is pressed
     def flip(self,screen,size):
         self.player_image = pygame.transform.scale(player_loadimage,(int(self.size*0.15),int(self.size*0.125)))
         self.player_flipped = pygame.transform.scale(player_loadflipped,(int(self.size*0.15),int(self.size*0.125)))

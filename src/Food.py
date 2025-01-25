@@ -22,8 +22,8 @@ class Food():
         self.swimming_frame = 0
         self.isvisible=True
 
-    #creating the food
-    def createfood(foodlist,screen,difficulty):
+    #creating the food and add to the foodlist
+    def createfood(foodlist, screen, difficulty):
         if difficulty == "Easy":
             foodspawn = random.randint(0,20)
         elif difficulty == "Medium":

@@ -23,8 +23,8 @@ class Enemy():
         self.hitbox = self.image.get_rect()
         self.hitbox.topleft = (self.x,self.y)
 
-    #creating the enemy
-    def createenemy(enemylist, screen, enemytype,difficulty):
+    #creating the enemy and add to the enemy list
+    def createenemy(enemylist, screen, enemytype, difficulty):
         if difficulty == "Easy":
             if enemytype == "plastic":
                 spawndelay = 80
