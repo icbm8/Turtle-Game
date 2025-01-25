@@ -1,13 +1,7 @@
 import pygame
 from text_loading import *
 
-#initialization
-pygame.init()
-
 #variables
-WIDTH, HEIGHT = 800, 600
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Input Box Example")
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 GRAY = (200, 200, 200)

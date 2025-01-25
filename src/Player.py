@@ -1,8 +1,8 @@
 import pygame
 from image_loading import player_loadimage
 from image_loading import player_loadflipped
-#player class
 
+#player class
 class Player(pygame.sprite.Sprite):
 
     #player initialization
@@ -17,6 +17,7 @@ class Player(pygame.sprite.Sprite):
         self.rect.topleft = (self.x,self.y)
         self.speed = 10
         self.alive = True
+
     def flip(self,screen,size):
         self.player_image = pygame.transform.scale(player_loadimage,(int(self.size*0.15),int(self.size*0.125)))
         self.player_flipped = pygame.transform.scale(player_loadflipped,(int(self.size*0.15),int(self.size*0.125)))

@@ -62,11 +62,3 @@ exit_button = pygame.transform.smoothscale(exit_button,(125,100))
 #blackout image
 blackout = pygame.image.load("./assets/black.png").convert_alpha()
 blackout = pygame.transform.smoothscale(blackout,(2000,1000))
-
-"""
-return {
-        "fade_image": fade_image, "background_image": background_image, "play_button": play_button, "settings_button": settings_button,
-        "about_button": about_button, "how_to_play_button": how_to_play_button, "quit_button": quit_button, "easy_button": easy_button,
-        "medium_button": medium_button, "hard_button": hard_button, "math_button": math_button, "marine_button": marine_button, "exit_button": exit_button,
-        "save_high_score_button": save_high_score_button, "yes_button": yes_button, "no_button": no_button, "blackout": blackout}
-"""

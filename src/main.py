@@ -255,9 +255,9 @@ while running:
             blackout_var = 255
 
         player.update()
-        Enemy.createenemy(enemylist, screen, "plastic")
-        Enemy.createenemy(enemylist, screen, "squid")
-        Food.createfood(foodlist, screen)
+        Enemy.createenemy(enemylist, screen, "plastic", difficulty)
+        Enemy.createenemy(enemylist, screen, "squid", difficulty)
+        Food.createfood(foodlist, screen,difficulty)
         if score > high_score:
             high_score = score
 
