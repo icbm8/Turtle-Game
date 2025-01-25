@@ -7,7 +7,6 @@ import json
 import sys
 import pygame.transform
 from player import Player
-from player import *
 from food import Food
 from enemies import Enemy
 from text_loading import *
