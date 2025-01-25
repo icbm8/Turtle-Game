@@ -12,19 +12,22 @@ class Player(pygame.sprite.Sprite):
         self.angle = 25
         self.screen = screen
         self.size = size
-        self.player_image = pygame.transform.scale(player_loadimage,(int(self.size*0.15),int(self.size*0.125)))
-        self.player_flipped = pygame.transform.scale(player_loadflipped,(int(self.size*0.15),int(self.size*0.125)))
-        self.image = self.player_image
+        self.flip(screen,size)
         self.rect = self.image.get_rect()
         self.rect.topleft = (self.x,self.y)
         self.speed = 10
         self.alive = True
+    def flip(self,screen,size):
+        self.player_image = pygame.transform.scale(player_loadimage,(int(self.size*0.15),int(self.size*0.125)))
+        self.player_flipped = pygame.transform.scale(player_loadflipped,(int(self.size*0.15),int(self.size*0.125)))
+        self.image = self.player_image
 
     #player growing
     def grow(self):
         from main import score
         from main import player
         player.size += 50
+        self.flip(self.screen,self.size)
         player.image = pygame.image.load("./assets/playerturtle.png")
         player.image = pygame.transform.smoothscale(player.image,(int(player.size*0.15),int(player.size*0.125)))
         player.rect = player.image.get_rect()
