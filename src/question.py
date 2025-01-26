@@ -45,10 +45,8 @@ class InputBox:
 
                 #keyboard events
                 for event in pygame.event.get():
-
                     if event.type == pygame.KEYDOWN:
                         if event.key == pygame.K_RETURN:
-
                             if self.text == str(answer):
                                 self.text = ''
                                 self.active = False

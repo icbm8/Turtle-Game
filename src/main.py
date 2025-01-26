@@ -39,6 +39,8 @@ quit = False
 def save_high_score(score, filename="high_score.json"):
     with open(filename, "w") as file:
         json.dump({"high_score": high_score}, file)
+
+#loading the high score
 def load_high_score(filename="high_score.json"):
      with open(filename, "r") as file:
         data = json.load(file)
