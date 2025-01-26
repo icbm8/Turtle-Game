@@ -54,6 +54,7 @@ difficulty = "Medium"
 subject = "Math"
 blackout_show = False
 blackout_var = 255
+blackout_change = 0
 speed_change = 0
 speed_change_time = 0
 diff_question = 0
