@@ -1,14 +1,16 @@
 import pygame
 import random
+from helper import get_asset_path
 
 pygame.init()
+main_font = get_asset_path("assets/font.ttf")
 facts_for_game = [
     "At least 1,000 sea turtles die each year due to plastic. Thats more than 1 turtle every 9 hours!",
     "By 2050, there will be more plastic than fish in the ocean!",
     "More than 100,000 marine animals die each year due to plastic."
     ]
 fact_on_menu = str(random.choice(facts_for_game))
-question_font = pygame.font.SysFont("sansserif", 30)
+question_font = pygame.font.Font(main_font, 30)
 submit_text = question_font.render("Press Enter to Submit", True, (0,0,0))
 math_questions = ["If there are 12 dolphins swimming in the ocean, and 9 more join them, how many dolphins are there now?", "A fisherman catches 25 fish in the morning and 14 in the afternoon. How many fish did he catch in total?",
                   "If there are 8 turtles on a beach and each turtle lays 5 eggs, how many eggs are laid in total?", "A group of 36 starfish is divided equally into 6 groups. How many starfish are in each group?",
@@ -24,16 +26,16 @@ math_questions = ["If there are 12 dolphins swimming in the ocean, and 9 more jo
 math_answers = ["21","39","40","6","200","5","3/8","3:15 PM","30","40","24","6","875","15","60","634","$6","5/12","96","700"]
 
 
-main_title_font = pygame.font.SysFont("sansserif", 65, bold = True)
+main_title_font = pygame.font.Font(main_font, 65, bold = True)
 main_title_text = main_title_font.render("Save The Turtles", True, (0, 0, 0))
-subtitle_font = pygame.font.SysFont("sansserif", 55)
+subtitle_font = pygame.font.Font(main_font, 55)
 subtitle_text = subtitle_font.render("GASTC Project by Jayden Wu", True, (0, 0, 0))
-facts_title_font = pygame.font.SysFont("sansserif", 40, bold = True)
+facts_title_font = pygame.font.Font(main_font, 40, bold = True)
 facts_title_text = facts_title_font.render("Real Facts:", True, (0, 0, 0))
-facts_font = pygame.font.SysFont("sansserif", 25, bold = True)
+facts_font = pygame.font.Font(main_font, 25, bold = True)
 facts_text = facts_font.render(str(fact_on_menu), True, (0, 0, 0))
-settings_font = pygame.font.SysFont("sansserif", 50, bold = True)
-about_font = pygame.font.SysFont("sansserif", 40)
+settings_font = pygame.font.Font(main_font, 50, bold = True)
+about_font = pygame.font.Font(main_font, 40)
 about_text1 = about_font.render("Save The Turtles - a game by Jayden Wu. In this game, you will navigate a turtle through", True, (0, 0, 0))
 about_text2 = about_font.render("multiple plastic obstacles. If you hit plastic, you will lose some health.", True, (0, 0, 0))
 about_text3 = about_font.render("Every once in a while, the player is asked a question about a subject of their liking (e.g. math", True, (0, 0, 0))
@@ -41,27 +43,27 @@ about_text4 = about_font.render(", marine life,) and if they get it wrong, they 
 about_text5 = about_font.render("lose any.", True, (0, 0, 0))
 about_text6 = about_font.render("This game is targeted to the younger age group (late elementary) to empower the earlier", True, (0, 0, 0))
 about_text7 = about_font.render("generation. The sooner people know, the better.", True, (0, 0, 0))
-how_to_play_font = pygame.font.SysFont("sansserif", 40, bold = True)
+how_to_play_font = pygame.font.Font(main_font, 40, bold = True)
 how_to_play_text1 = how_to_play_font.render("Use WASD or arrow keys to navigate your turtle! You start with 100 health and each time you", True, (0, 0, 0))
 how_to_play_text2 = how_to_play_font.render("hit an obstacle, for example a plastic bag or bottle, you will lose 10 health and slow down a ", True, (0, 0, 0))
 how_to_play_text3 = how_to_play_font.render("little. Each time you eat a fish, you gain 1 point and each 5 fish you eat you grow a bit bigger.", True, (0, 0, 0))
 how_to_play_text4 = how_to_play_font.render("If you hit a squid, you will lose 15 health and have obscured vision for a short time and also slown down.", True, (0, 0, 0))
 how_to_play_text5 = how_to_play_font.render("Survive as long as you can!", True, (0, 0, 0))
-display_caps_font = pygame.font.SysFont("sansserif", 25, bold = True)
+display_caps_font = pygame.font.Font(main_font, 25, bold = True)
 version_text = display_caps_font.render("v. 5.81  mobile is not supported ", True, (0, 0, 0))
 
 #labels
-labels_font = pygame.font.SysFont("sansserif", 30)
+labels_font = pygame.font.Font(main_font, 30)
 play_label_text = labels_font.render("^ Play ^", True, (0, 0, 0))
 settings_label_text = labels_font.render("^ Settings ^", True, (0, 0, 0))
 about_label_text = labels_font.render("^ About ^", True, (0, 0, 0))
 how_to_play_label_text = labels_font.render("^ How To Play ^", True, (0, 0, 0))
 quit_label_text = labels_font.render("^ Quit ^", True, (0, 0, 0))
 #game labels
-game_labels_font = pygame.font.SysFont("sansserif", 25, bold = True)
+game_labels_font = pygame.font.Font(main_font, 25, bold = True)
 game_title_text = game_labels_font.render("Save the Turtles by Jayden Wu", True, (0, 0, 0))
-you_lost_font1 = pygame.font.SysFont("sansserif", 80, bold = True)
-you_lost_font2 = pygame.font.SysFont("sansserif", 25, bold = True)
+you_lost_font1 = pygame.font.Font(main_font, 80, bold = True)
+you_lost_font2 = pygame.font.Font(main_font, 25, bold = True)
 you_lost_text1 = you_lost_font1.render("You Lost!", True, (0, 0, 0))
 you_lost_text2 = you_lost_font2.render("Thousands of turtles have died due to plastic like you just did.", True, (0, 0, 0))
 you_lost_text3 = you_lost_font2.render("However, we can put a stop to this. Donating to fundraising campaigns", True, (0, 0, 0))

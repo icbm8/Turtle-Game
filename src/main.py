@@ -36,12 +36,12 @@ save_high_score_show = False
 quit = False
 
 #high score saving
-def save_high_score(score, filename="high_score.json"):
+def save_high_score(score, filename = get_asset_path("high_score.json")):
     with open(filename, "w") as file:
         json.dump({"high_score": high_score}, file)
 
 #loading the high score
-def load_high_score(filename="high_score.json"):
+def load_high_score(filename = get_asset_path("high_score.json")):
      with open(filename, "r") as file:
         data = json.load(file)
         return data.get("high_score", 0)
@@ -72,7 +72,7 @@ enemy_timer = enemy_timer_max
 running_pause = 0
 
 #music loading and playing
-pygame.mixer.music.load("./assets/menu_music.mp3")
+pygame.mixer.music.load(get_asset_path("assets/menu_music.mp3"))
 pygame.mixer.music.set_volume(0.1)
 pygame.mixer.music.play(loops=-1)
 
