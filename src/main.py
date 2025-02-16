@@ -110,45 +110,45 @@ while running:
 
         #blitting play button and label
         play_button_hitbox = play_button.get_rect()
-        play_button_hitbox.topleft = 160,125
-        screen.blit(play_button,(160,125))
-        screen.blit(play_label_text, (325,335))
+        play_button_hitbox.topleft = 160,150
+        screen.blit(play_button,(160,150))
+        screen.blit(play_label_text, (315,360))
 
         #blitting settings button and label
         settings_button_hitbox = settings_button.get_rect()
-        settings_button_hitbox.topleft = 560,125
-        screen.blit(settings_button,(560,125))
-        screen.blit(settings_label_text, (605,335))
+        settings_button_hitbox.topleft = 560,150
+        screen.blit(settings_button,(560,150))
+        screen.blit(settings_label_text, (595, 360))
 
         #blitting about button and label
         about_button_hitbox = about_button.get_rect()
-        about_button_hitbox.topleft = 770,125
-        screen.blit(about_button,(770,125))
-        screen.blit(about_label_text, (820,335))
+        about_button_hitbox.topleft = 770,150
+        screen.blit(about_button,(770,150))
+        screen.blit(about_label_text, (810, 360))
 
         #blitting how to play button and label
         how_to_play_button_hitbox = how_to_play_button.get_rect()
-        how_to_play_button_hitbox.topleft = 970,125
-        screen.blit(how_to_play_button,(970,125))
-        screen.blit(how_to_play_label_text, (1080,335))
+        how_to_play_button_hitbox.topleft = 970,150
+        screen.blit(how_to_play_button,(970,150))
+        screen.blit(how_to_play_label_text, (1070, 360))
                 
         #blitting quit button and label
         quit_button_hitbox = quit_button.get_rect()
-        quit_button_hitbox.topleft = 560,360
-        screen.blit(quit_button,(560,360))
-        screen.blit(quit_label_text, (720,570))
+        quit_button_hitbox.topleft = 560,410
+        screen.blit(quit_button,(560,410))
+        screen.blit(quit_label_text, (710,620))
 
         #titles and real facts
 
         #blitting main title
-        screen.blit(main_title_text, (560,20))
+        screen.blit(main_title_text, (560,5))
 
         #blitting subtitle
-        screen.blit(subtitle_text, (500,70))
+        screen.blit(subtitle_text, (500, 75))
 
         #blitting real facts
-        screen.blit(facts_title_text, (200, 600))
-        screen.blit(facts_text, (380, 605.5))
+        screen.blit(facts_title_text, (200, 660))
+        screen.blit(facts_text, (392, 672))
 
         #hitbox collisions
         if event.type == pygame.MOUSEBUTTONDOWN:
@@ -176,13 +176,13 @@ while running:
     if game_start:
 
         #blitting game title, score, high score, health
-        screen.blit(game_title_text, (10, 30))
+        screen.blit(game_title_text, (10, 32.5))
         score_text = game_labels_font.render("Score: " + str(score), True, (0, 0, 0))    
         high_score_text = game_labels_font.render("High Score: " + str(high_score), True, (0, 0, 0))
         health_text = game_labels_font.render("Health: " + str(health), True, (0, 0, 0)) 
-        screen.blit(score_text, (10, 50))
-        screen.blit(high_score_text, (10, 75))
-        screen.blit(health_text, (10,100))
+        screen.blit(score_text, (10, 57.5))
+        screen.blit(high_score_text, (10, 82.5))
+        screen.blit(health_text, (10,107.5))
 
         #blitting exit button and exit button collision
         exit_button_hitbox = exit_button.get_rect()
@@ -280,11 +280,12 @@ while running:
 
     #if game is lost
     if health <= 0 and menu_show == False and about_show == False and how_to_play_show == False and settings_show == False:
-        screen.blit(you_lost_text1,(200,300))
-        screen.blit(you_lost_text2,(200,400))
-        screen.blit(you_lost_text3,(200,425))
-        screen.blit(you_lost_text4,(200,450))
-        screen.blit(you_lost_text5,(200,475))
+        screen.blit(you_lost_text1,(600,10))
+        screen.blit(you_lost_text2,(20,100))
+        screen.blit(you_lost_text3,(20,150))
+        screen.blit(you_lost_text4,(20,200))
+        screen.blit(you_lost_text5,(20,250))
+        screen.blit(you_lost_text6,(20,300))
         game_start = False
         exit_button_hitbox = exit_button.get_rect()
         exit_button_hitbox.topleft = (1380,0)
@@ -400,6 +401,7 @@ while running:
         screen.blit(how_to_play_text3, (20, 185))
         screen.blit(how_to_play_text4, (20, 265))
         screen.blit(how_to_play_text5, (20, 305))
+        screen.blit(how_to_play_text6, (20, 345))
 
     #if quit was clicked it will sask player to save high score
     if save_high_score_show:
@@ -433,8 +435,10 @@ while running:
     clock.tick(FPS)
     fps_text = display_caps_font.render("FPS: " + str(round(clock.get_fps())), True, (0, 0, 0))
     screen.blit(fps_text, (10,10))
-    screen.blit(version_text, (90,10))
+    screen.blit(version_text, (110,10))
     pygame.display.flip()
+    
+    #time played caption
     if round(elapsed_time) < 60:
         pygame.display.set_caption("Save the Turtles - " + str(round(elapsed_time)) + " Seconds Played")
     elif round(elapsed_time) == 60:
