@@ -1,6 +1,6 @@
 import pygame
-from image_loading import player_loadimage
-from image_loading import player_loadflipped
+from image_loading import player_image
+from image_loading import player_flipped
 
 #player class
 class Player(pygame.sprite.Sprite):
@@ -20,15 +20,15 @@ class Player(pygame.sprite.Sprite):
 
     #flip the image when left key is pressed and also when right key is pressed
     def flip(self,screen,size):
-        self.player_image = pygame.transform.scale(player_loadimage,(int(self.size*0.15),int(self.size*0.125)))
-        self.player_flipped = pygame.transform.scale(player_loadflipped,(int(self.size*0.15),int(self.size*0.125)))
+        self.player_image = pygame.transform.scale(player_image,(int(self.size*0.15),int(self.size*0.125)))
+        self.player_flipped = pygame.transform.scale(player_flipped,(int(self.size*0.15),int(self.size*0.125)))
         self.image = self.player_image
 
     #player growing
     def grow(self):
         self.size += 50
         self.flip(self.screen,self.size)
-        self.image = pygame.image.load("./assets/playerturtle.png")
+        self.image = player_image
         self.image = pygame.transform.smoothscale(self.image,(int(self.size*0.15),int(self.size*0.125)))
         self.rect = self.image.get_rect()
 

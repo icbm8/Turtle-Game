@@ -1,5 +1,7 @@
 import pygame
 import random
+from image_loading import enemy_images
+from image_loading import squid_image
 
 #enemy class
 class Enemy():
@@ -15,10 +17,9 @@ class Enemy():
         self.size = size
         self.enemytype = enemytype
         if enemytype == "plastic":
-            images = ["./assets/plasticbag.png","./assets/plasticbottle.png"]
-            self.image = pygame.image.load(images[random.randint(0,1)])
+            self.image = pygame.image.load(enemy_images[random.randint(0,1)])
         if enemytype == "squid":
-            self.image = pygame.image.load("./assets/squid.png")
+            self.image = squid_image
         self.image = pygame.transform.smoothscale(self.image,(self.size,self.size))
         self.hitbox = self.image.get_rect()
         self.hitbox.topleft = (self.x,self.y)

@@ -1,5 +1,6 @@
 import pygame
 import random
+from image_loading import food_images
 
 #food class
 class Food():
@@ -10,8 +11,7 @@ class Food():
         self.screen = screen
         self.speed = speed
         self.size = size
-        images = ["./assets/fish1.png","./assets/fish2.png","./assets/fish3.png","./assets/fish4.png","./assets/fish5.png"]
-        self.image = pygame.image.load(images[random.randint(0,4)])
+        self.image = pygame.image.load(food_images[random.randint(0,4)])
         self.image = pygame.transform.scale(self.image,(int(self.size*0.75),int(self.size*0.5)))
         if rol == 0:
             self.image = pygame.transform.flip(self.image, True, False)

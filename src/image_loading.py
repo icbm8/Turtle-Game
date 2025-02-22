@@ -5,9 +5,11 @@ pygame.display.set_mode()
 
 #images
 fade_image = pygame.image.load(get_asset_path('assets/fade.png')).convert_alpha()
-player_loadimage = pygame.image.load(get_asset_path("assets/playerturtle.png"))
-player_loadflipped = pygame.transform.flip(player_loadimage, True, False)
-
+player_image = pygame.image.load(get_asset_path("assets/playerturtle.png"))
+player_flipped = pygame.transform.flip(player_image, True, False)
+enemy_images = [get_asset_path("assets/plasticbag.png"),get_asset_path("assets/plasticbottle.png")]
+food_images = [get_asset_path("assets/fish1.png"), get_asset_path("assets/fish2.png"), get_asset_path("assets/fish3.png"), get_asset_path("assets/fish4.png"), get_asset_path("assets/fish5.png")]
+squid_image = pygame.image.load(get_asset_path("assets/squid.png")) 
 
 #background
 background_image = pygame.image.load(get_asset_path("assets/background.jpg")).convert_alpha()
