@@ -12,6 +12,7 @@ facts_for_game = [
     ]
 fact_on_menu = str(random.choice(facts_for_game))
 question_font = pygame.font.Font(main_font, 30)
+question_font2 = pygame.font.Font(main_font, 20)
 submit_text = question_font.render("Press Enter to Submit", True, (0,0,0))
 math_questions = ["If there are 12 dolphins swimming in the ocean, and 9 more join them, how many dolphins are there now?", "A fisherman catches 25 fish in the morning and 14 in the afternoon. How many fish did he catch in total?",
                   "If there are 8 turtles on a beach and each turtle lays 5 eggs, how many eggs are laid in total?", "A group of 36 starfish is divided equally into 6 groups. How many starfish are in each group?",
@@ -25,6 +26,24 @@ math_questions = ["If there are 12 dolphins swimming in the ocean, and 9 more jo
                   "A beach has 12 seashells. 4 of them are pink, 3 are blue, and the rest are white. What fraction of the seashells are white?", "An octopus has 8 arms. How many arms do 12 octopuses have in total?",
                   "The ocean has a depth of 3,500 meters in one area and 4,200 meters in another area. Which area is deeper, and by how many meters?"]
 math_answers = ["21","39","40","6","200","5","3/8","3:15 PM","30","40","24","6","875","15","60","634","$6","5/12","96","700"]
+marine_questions = ["How does plastic pollution affect marine ecosystems?", "What are microplastics?", 
+                    "How do microplastics enter the ocean?", "Which source contributes most to ocean plastic pollution?",
+                    "What is a major plastic accumulation zone in the ocean?", "How does plastic pollution contribute to climate change?",
+                    "What is a potential health risk of microplastics in seafood?", "Which policy helps combat ocean plastic pollution?",
+                    "What is a solution to plastic pollution?"
+                    ]
+marine_mc = [
+    "a) It provides shelter for marine life b) It harms animals through ingestion and entanglement c) It improves water quality d) It increases oxygen levels",
+    "a) Tiny plastic particles under 5mm b) Large plastic debris in the oceanc) A type of biodegradable plastic d) Plastics that dissolve in water",
+    "a) Through wastewater and runoff b) Only from plastic bottles c) Released by deep-sea organisms d) Created naturally by ocean currents",
+    "a) It stays in one place b) It sinks immediately c) Carried by ocean currents d) Absorbed by marine organisms",
+    "a) Mariana Trench b) The Great Pacific Garbage Patch c) Bermuda Triangle d) Arctic Ocean",
+    "a) It increases CO₂ emissions during production b) It releases greenhouse gases as it degrades c) It harms ecosystems that store carbon d) All of the above",
+    "a) They contain harmful toxins b) They improve digestion c) They provide extra nutrients d) They boost metabolism",
+    "a) UN Global Plastic Treaty b) Open Ocean Dumping Initiative c) Plastic Promotion Act d) The Deep-Sea Disposal Program",
+    "a) Using biodegradable plastics b) Banning plastic bags c) Ocean cleanup projects d) All of the above"
+    ]
+marine_answers = ["b", "a", "a", "c", "c", "b", "d", "a", "a", "d"]
 
 main_title_font = pygame.font.Font(bold_font, 65)
 main_title_text = main_title_font.render("Save The Turtles", True, (0, 0, 0))
@@ -52,6 +71,8 @@ how_to_play_text5 = how_to_play_font.render("If you hit a squid, you will lose 1
 how_to_play_text6 = how_to_play_font.render("and also slown down. Survive as long as you can!", True, (0, 0, 0))
 display_caps_font = pygame.font.Font(bold_font, 25)
 version_text = display_caps_font.render("v. 5.81  mobile is not supported ", True, (0, 0, 0))
+challenge_question_font = pygame.font.Font(main_font, 60)
+challenge_question_text = challenge_question_font.render("Challenge Question:", True, (0,0,0))
 
 #labels
 labels_font = pygame.font.Font(main_font, 30)
@@ -60,6 +81,7 @@ settings_label_text = labels_font.render("^ Settings ^", True, (0, 0, 0))
 about_label_text = labels_font.render("^ About ^", True, (0, 0, 0))
 how_to_play_label_text = labels_font.render("^ How To Play ^", True, (0, 0, 0))
 quit_label_text = labels_font.render("^ Quit ^", True, (0, 0, 0))
+
 #game labels
 game_labels_font = pygame.font.Font(main_font, 25)
 game_title_text = game_labels_font.render("Save the Turtles by Jayden Wu", True, (0, 0, 0))

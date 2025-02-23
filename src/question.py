@@ -20,7 +20,7 @@ class InputBox:
             self.active = False
 
         #drawing the box
-        def draw(self, screen, question_text, answer):
+        def draw(self, screen, question_text, answer, question_mc, subject):
             self.active = True
             while self.active:
                 #loading the background image
@@ -30,7 +30,11 @@ class InputBox:
 
                 #loading the font
                 question = question_font.render(str(question_text), True, (0,0,0))
-                screen.blit(question, (5,130))
+                screen.blit(question, (10,80))
+                screen.blit(challenge_question_text, (10,10))
+                
+                question_mc_text = question_font2.render(str(question_mc), True, (0,0,0))
+                screen.blit(question_mc_text, (10,120))
 
                 #drawing the rect
                 pygame.draw.rect(screen, self.color, self.rect, 2)
@@ -38,8 +42,10 @@ class InputBox:
                 screen.blit(self.txt_surface, (self.rect.x + 5, self.rect.y + 5))
 
                 #drawing submit_text
-
-                screen.blit(submit_text, (5, 250))
+                if subject == "Marine Science":
+                    screen.blit(submit_text, (10, 210))
+                else:
+                    screen.blit(submit_text, (10, 170))     
 
                 pygame.display.flip()
 

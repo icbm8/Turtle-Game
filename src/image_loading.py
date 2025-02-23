@@ -61,7 +61,7 @@ no_button = pygame.image.load(get_asset_path("assets/no.png")).convert_alpha()
 no_button = pygame.transform.smoothscale(no_button,(200,200))
 #exit button image
 exit_button = pygame.image.load(get_asset_path("assets/x.png")).convert_alpha()
-exit_button = pygame.transform.smoothscale(exit_button,(125,100))
+exit_button = pygame.transform.smoothscale(exit_button,(83,67))
 #blackout image
 blackout = pygame.image.load(get_asset_path("assets/black.png")).convert_alpha()
 blackout = pygame.transform.smoothscale(blackout,(2000,1000))

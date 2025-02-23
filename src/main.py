@@ -118,7 +118,7 @@ while running:
         settings_button_hitbox = settings_button.get_rect()
         settings_button_hitbox.topleft = 560,150
         screen.blit(settings_button,(560,150))
-        screen.blit(settings_label_text, (595, 360))
+        screen.blit(settings_label_text, (590, 360))
 
         #blitting about button and label
         about_button_hitbox = about_button.get_rect()
@@ -186,8 +186,8 @@ while running:
 
         #blitting exit button and exit button collision
         exit_button_hitbox = exit_button.get_rect()
-        exit_button_hitbox.topleft = (1380,0)
-        screen.blit(exit_button,(1380,0))
+        exit_button_hitbox.topleft = (1420,0)
+        screen.blit(exit_button,(1420,0))
         if event.type == pygame.MOUSEBUTTONDOWN:
             if exit_button_hitbox.collidepoint(event.pos):
                 game_start = False
@@ -265,33 +265,45 @@ while running:
 
     #question show
     if show_question:
-        input_box = InputBox(5, 160, 800, 40)
-        question_random = random.randint(0,len(math_questions)-1)
-        question_text = str(math_questions[question_random])
-        question_answer = math_answers[question_random]
-        game_start = False
+        if subject == "Marine Science":
+            input_box = InputBox(10, 160, 800, 40)
+            question_random = random.randint(0,len(marine_questions)-1)
+            question_text = str(marine_questions[question_random])
+            question_mc = str(marine_mc[question_random])
+            question_answer = marine_answers[question_random]
+        else:
+            input_box = InputBox(10, 120, 800, 40)
+            question_random = random.randint(0,len(math_questions)-1)
+            question_text = str(math_questions[question_random])
+            question_mc = ""
+            question_answer = math_answers[question_random]
 
-        result_is_correct = input_box.draw(screen, question_text, question_answer)
+        game_start = False 
+        result_is_correct = input_box.draw(screen, question_text, question_answer, question_mc, subject)
         if result_is_correct:
-            score += 3
+            score += 5
             health += 10
         show_question = False
         game_start = True
 
     #if game is lost
-    if health <= 0 and menu_show == False and about_show == False and how_to_play_show == False and settings_show == False:
+    if health <= 0 and not (menu_show or about_show or how_to_play_show or settings_show):
+        
+        #text
         screen.blit(you_lost_text1,(600,10))
         screen.blit(you_lost_text2,(20,100))
         screen.blit(you_lost_text3,(20,150))
         screen.blit(you_lost_text4,(20,200))
         screen.blit(you_lost_text5,(20,250))
         screen.blit(you_lost_text6,(20,300))
+        
+        #exit things
         game_start = False
         exit_button_hitbox = exit_button.get_rect()
-        exit_button_hitbox.topleft = (1380,0)
-        screen.blit(exit_button,(1380,0))
+        exit_button_hitbox.topleft = (1420,0)
+        screen.blit(exit_button,(1420,0))
 
-        #
+        #exit button hitbox
         if event.type == pygame.MOUSEBUTTONDOWN:
             if exit_button_hitbox.collidepoint(event.pos):
                 menu_show = True
@@ -300,6 +312,8 @@ while running:
                 score = 0
                 player.x = 5
                 player.y = 450
+                
+        #restart
         if keys[pygame.K_r]:
             game_start = True
             health = 100
@@ -313,8 +327,8 @@ while running:
         #blitting settings text
         difficulty_text = settings_font.render("Difficulty: " + difficulty, True, (0, 0, 0))
         subject_text = settings_font.render("Subject: " + subject, True, (0, 0, 0))
-        screen.blit(difficulty_text, (560, 20))
-        screen.blit(subject_text, (560, 350))
+        screen.blit(difficulty_text, (580, 10))
+        screen.blit(subject_text, (580, 330))
 
         #blitting easy button
         easy_button_hitbox = easy_button.get_rect()
@@ -343,8 +357,8 @@ while running:
 
         #blitting exit button
         exit_button_hitbox = exit_button.get_rect()
-        exit_button_hitbox.topleft = (1380,0)
-        screen.blit(exit_button,(1380,0))
+        exit_button_hitbox.topleft = (1420,0)
+        screen.blit(exit_button,(1420,0))
 
         #button hitbox collisions
         if event.type == pygame.MOUSEBUTTONDOWN:
@@ -365,51 +379,51 @@ while running:
     #if about was clicked
     if about_show:
 
-        #exit button blit and label
+        #blitting the exit button and label
         exit_button_hitbox = exit_button.get_rect()
-        exit_button_hitbox.topleft = (1380,0)
-        screen.blit(exit_button,(1380,0))
+        exit_button_hitbox.topleft = (1420,0)
+        screen.blit(exit_button,(1420,0))
         if event.type == pygame.MOUSEBUTTONDOWN:
             if exit_button_hitbox.collidepoint(event.pos):
                     about_show = False
                     menu_show = True
 
         #about text
-        screen.blit(about_text1, (20, 105))
-        screen.blit(about_text2, (20, 145))
-        screen.blit(about_text3, (20, 265))
-        screen.blit(about_text4, (20, 305))
-        screen.blit(about_text5, (20, 345))
-        screen.blit(about_text6, (20, 425))
-        screen.blit(about_text7, (20, 465))
+        screen.blit(about_text1, (20, 70))
+        screen.blit(about_text2, (20, 110))
+        screen.blit(about_text3, (20, 190))
+        screen.blit(about_text4, (20, 230))
+        screen.blit(about_text5, (20, 270))
+        screen.blit(about_text6, (20, 350))
+        screen.blit(about_text7, (20, 390))
 
     #if how_to_play was clicked
     if how_to_play_show:
 
         #blitting exit button and creating hitbox
         exit_button_hitbox = exit_button.get_rect()
-        exit_button_hitbox.topleft = (1380,0)
-        screen.blit(exit_button,(1380,0))
+        exit_button_hitbox.topleft = (1420,0)
+        screen.blit(exit_button,(1420,0))
         if event.type == pygame.MOUSEBUTTONDOWN:
             if exit_button_hitbox.collidepoint(event.pos):
                     how_to_play_show = False
                     menu_show = True
 
         #how to play text
-        screen.blit(how_to_play_text1, (20, 105))
-        screen.blit(how_to_play_text2, (20, 145))
-        screen.blit(how_to_play_text3, (20, 185))
-        screen.blit(how_to_play_text4, (20, 265))
-        screen.blit(how_to_play_text5, (20, 305))
-        screen.blit(how_to_play_text6, (20, 345))
+        screen.blit(how_to_play_text1, (20, 70))
+        screen.blit(how_to_play_text2, (20, 110))
+        screen.blit(how_to_play_text3, (20, 150))
+        screen.blit(how_to_play_text4, (20, 230))
+        screen.blit(how_to_play_text5, (20, 270))
+        screen.blit(how_to_play_text6, (20, 310))
 
     #if quit was clicked it will sask player to save high score
     if save_high_score_show:
         
         #exit button blit and label
         exit_button_hitbox = exit_button.get_rect()
-        exit_button_hitbox.topleft = (1380,0)
-        screen.blit(exit_button,(1380,0))
+        exit_button_hitbox.topleft = (1420,0)
+        screen.blit(exit_button,(1420,0))
         if event.type == pygame.MOUSEBUTTONDOWN:
             if exit_button_hitbox.collidepoint(event.pos):
                     save_high_score_show = False
@@ -434,8 +448,8 @@ while running:
     #final captions and text including FPS and caption
     clock.tick(FPS)
     fps_text = display_caps_font.render("FPS: " + str(round(clock.get_fps())), True, (0, 0, 0))
-    screen.blit(fps_text, (10,10))
-    screen.blit(version_text, (110,10))
+    screen.blit(fps_text, (10,5))
+    screen.blit(version_text, (110,5))
     pygame.display.flip()
     
     #time played caption
