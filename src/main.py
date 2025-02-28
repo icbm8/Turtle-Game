@@ -353,7 +353,7 @@ while running:
         #blitting marine science button
         marine_button_hitbox = marine_button.get_rect()
         marine_button_hitbox.topleft = (750,400)
-        screen.blit(marine_button,(750,400))
+        screen.blit(marine_button,(800,400))
 
         #blitting exit button
         exit_button_hitbox = exit_button.get_rect()

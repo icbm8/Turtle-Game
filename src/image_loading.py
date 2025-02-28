@@ -38,30 +38,39 @@ quit_button = pygame.transform.smoothscale(quit_button,(400,200))
 #easy button image
 easy_button = pygame.image.load(get_asset_path("assets/easy.png")).convert_alpha()
 easy_button = pygame.transform.smoothscale(easy_button,(338,225))
+
 #medium button image
 medium_button = pygame.image.load(get_asset_path("assets/medium.png")).convert_alpha()
 medium_button = pygame.transform.smoothscale(medium_button,(338,225))
+
 #hard button image
 hard_button = pygame.image.load(get_asset_path("assets/hard.png")).convert_alpha()
 hard_button = pygame.transform.smoothscale(hard_button,(338,225))
+
 #math button image
 math_button = pygame.image.load(get_asset_path("assets/math.png")).convert_alpha()
-math_button = pygame.transform.smoothscale(math_button,(338,225))
+math_button = pygame.transform.smoothscale(math_button,(380,225))
+
 #marine science button image
 marine_button = pygame.image.load(get_asset_path("assets/marinescience.png")).convert_alpha()
-marine_button = pygame.transform.smoothscale(marine_button,(338,225))
+marine_button = pygame.transform.smoothscale(marine_button,(380,225))
+
 #save highscore button image
 save_high_score_button = pygame.image.load(get_asset_path("assets/save_high_score.png")).convert_alpha()
 save_high_score_button = pygame.transform.smoothscale(save_high_score_button,(944,520))
+
 #yes button image
 yes_button = pygame.image.load(get_asset_path("assets/yes.png")).convert_alpha()
 yes_button = pygame.transform.smoothscale(yes_button,(200,200))
+
 #no button image
 no_button = pygame.image.load(get_asset_path("assets/no.png")).convert_alpha()
 no_button = pygame.transform.smoothscale(no_button,(200,200))
+
 #exit button image
 exit_button = pygame.image.load(get_asset_path("assets/x.png")).convert_alpha()
 exit_button = pygame.transform.smoothscale(exit_button,(83,67))
+
 #blackout image
 blackout = pygame.image.load(get_asset_path("assets/black.png")).convert_alpha()
 blackout = pygame.transform.smoothscale(blackout,(2000,1000))
