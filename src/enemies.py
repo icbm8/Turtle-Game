@@ -8,6 +8,8 @@ class Enemy():
 
     #initialization
     def __init__(self,x, y,rol, speed, size, screen, enemytype):
+        
+        #variables
         self.x = x
         self.y = y
         self.rol=rol
@@ -16,6 +18,8 @@ class Enemy():
         self.speed = speed
         self.size = size
         self.enemytype = enemytype
+        
+        #checks what type the enemy is
         if enemytype == "plastic":
             self.image = pygame.image.load(enemy_images[random.randint(0,1)])
         if enemytype == "squid":
@@ -26,6 +30,8 @@ class Enemy():
 
     #creating the enemy and add to the enemy list
     def createenemy(enemylist, screen, enemytype, difficulty):
+        
+        #checks difficulty
         if difficulty == "Easy":
             if enemytype == "plastic":
                 spawndelay = 80
@@ -42,28 +48,32 @@ class Enemy():
             elif enemytype == "squid":
                 spawndelay = 60
         enemyspawn = random.randint(0,spawndelay)
+        
+        #randomly spawns the enemy
         rol=0
         if enemyspawn == 1:
             lor = random.randint(0,1)
             if lor == 0:
-                enemynewx=-100
-                rol=lor
+                enemynewx =- 100
+                rol = lor
             elif lor == 1:
-                enemynewx=1600
-                rol=lor
-            spawnypos=random.randint(0,975)
-            if spawnypos <487.5:
-                rol=0
+                enemynewx = 1600
+                rol = lor
+            spawnypos = random.randint(0,975)
+            if spawnypos < 487.5:
+                rol = 0
                 lor = rol
-            elif spawnypos>487.5:
-                rol=1
-                lor=rol
+            elif spawnypos > 487.5:
+                rol = 1
+                lor = rol
             enemy = Enemy(enemynewx,spawnypos,rol,5,100, screen, enemytype)
             enemylist.append(enemy)
 
     #updating the enemy
     def update(self, screen, enemylist):
         if self.isvisible:
+            
+            #moves the enemy
             screen.blit(self.image,(self.x, self.y))
             self.hitbox.topleft = (self.x,self.y)
             if self.rol==0:

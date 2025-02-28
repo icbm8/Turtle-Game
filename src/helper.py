@@ -2,11 +2,14 @@ import os
 import sys
 
 def get_asset_path(filename):
+    #if running in PyInstaller bundle, it gets the base path from the temporary directory _MEIPASS
+    #otherwise, it returns the path relative to the script's directory.
     if hasattr(sys, '_MEIPASS'):
-        # Running in a PyInstaller bundle
+        #running in a PyInstaller bundle
         base_path = sys._MEIPASS
+        print(base_path)
     else:
-        # Running as a script in Visual Studio Code
+        #running as a script in Visual Studio Code
         base_path = os.path.dirname(os.path.abspath(__file__))
         base_path = base_path + "/../"
 
