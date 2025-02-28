@@ -70,7 +70,7 @@ how_to_play_text4 = how_to_play_font.render("Each time you eat a fish, you gain 
 how_to_play_text5 = how_to_play_font.render("If you hit a squid, you will lose 15 health and have obscured vision for a short time", True, (0, 0, 0))
 how_to_play_text6 = how_to_play_font.render("and also slown down. Survive as long as you can!", True, (0, 0, 0))
 display_caps_font = pygame.font.Font(bold_font, 25)
-version_text = display_caps_font.render("v. 5.81  mobile is not supported ", True, (0, 0, 0))
+version_text = display_caps_font.render("v. 1.9", True, (0, 0, 0))
 challenge_question_font = pygame.font.Font(main_font, 60)
 challenge_question_text = challenge_question_font.render("Challenge Question:", True, (0,0,0))
 
