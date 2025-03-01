@@ -144,7 +144,7 @@ while running:
         screen.blit(main_title_text, (560,5))
 
         #blitting subtitle
-        screen.blit(subtitle_text, (500, 75))
+        screen.blit(subtitle_text, (430, 75))
 
         #blitting real facts
         screen.blit(facts_title_text, (200, 660))

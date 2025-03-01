@@ -7,7 +7,6 @@ def get_asset_path(filename):
     if hasattr(sys, '_MEIPASS'):
         #running in a PyInstaller bundle
         base_path = sys._MEIPASS
-        print(base_path)
     else:
         #running as a script in Visual Studio Code
         base_path = os.path.dirname(os.path.abspath(__file__))
