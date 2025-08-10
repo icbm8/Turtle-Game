@@ -454,11 +454,11 @@ while running:
     
     #time played caption
     if round(elapsed_time) < 60:
-        pygame.display.set_caption("Save the Turtles - " + str(round(elapsed_time)) + " Seconds Played")
+        pygame.display.set_caption("Turtle Game - " + str(round(elapsed_time)) + " Seconds Played")
     elif round(elapsed_time) == 60:
-        pygame.display.set_caption("Save the Turtles - 1 Minute Played")
+        pygame.display.set_caption("Turtle Game - 1 Minute Played")
     elif round(elapsed_time) > 60:
-        pygame.display.set_caption("Save the Turtles - " + str(math.floor(math.floor(elapsed_time)/60)) + " Minutes and " + str(math.floor(elapsed_time) % 60) + " Seconds Played")
+        pygame.display.set_caption("Turtle Game - " + str(math.floor(math.floor(elapsed_time)/60)) + " Minutes and " + str(math.floor(elapsed_time) % 60) + " Seconds Played")
         if math.floor(elapsed_time) % 60 == 0:
-            pygame.display.set_caption("Save the Turtles - " + str(math.floor(elapsed_time/60)) + " Minutes Played")
+            pygame.display.set_caption("Turtle Game - " + str(math.floor(elapsed_time/60)) + " Minutes Played")
 #end
